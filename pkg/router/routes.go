@@ -7,7 +7,6 @@ import (
 )
 
 func Routes(app fiber.Router) {
-	// routes bank account
 	app.Get(
 		"/account",
 		accountHandlers.GetBankAccount)

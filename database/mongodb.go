@@ -16,10 +16,10 @@ var (
 )
 
 type MongoConfig struct {
-	URL       string      // URL de conexão com o MongoDB
-	AppName   string      // Nome da aplicação
-	DebugMode bool        // Flag que habilita os logs de debug
-	Log       slog.Logger // Logger que será utilizado
+	URL       string
+	AppName   string
+	DebugMode bool
+	Log       slog.Logger
 }
 
 func MongoDBConnection(ctx context.Context) error {
