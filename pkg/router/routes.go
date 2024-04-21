@@ -16,4 +16,7 @@ func Routes(app fiber.Router) {
 	app.Put(
 		"/account/update/:id",
 		accountHandlers.UpdateAccount)
+	app.Delete(
+		"/account/remove/:id",
+		accountHandlers.DeleteAccount)
 }

@@ -77,3 +77,17 @@ func UpdateBankAccount(id string, newAccount *structs.Accounts) (structs.Account
 
 	return *newAccount, err
 }
+
+func DeleteBankAccount(id string) (bool, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	filter := bson.M{"_id": tools.StringToObjectId(id)}
+
+	res, err := tools.DeleteOne(ctx, Collection, filter)
+
+	if res.DeletedCount > 0 {
+		return true, err
+	}
+	return false, err
+}

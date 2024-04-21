@@ -50,3 +50,9 @@ func FindOne(ctx context.Context, collection string, filters primitive.M, option
 		Collection(collection).
 		FindOne(ctx, filters, options)
 }
+
+func DeleteOne(ctx context.Context, collection string, filters primitive.M) (*mongo.DeleteResult, error) {
+	return database.MongoDB.
+		Collection(collection).
+		DeleteOne(ctx, filters)
+}
