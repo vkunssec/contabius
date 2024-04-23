@@ -1,0 +1,19 @@
+baseURL = '/docs'
+languageCode = 'pt-br'
+title = 'contabius'
+theme = 'hugo-theme-monochrome'
+
+[outputs]
+    home = ["HTML", "RSS", "JSON"]
+
+[params]
+    enable_site_search = true
+    color_scheme = "dark"
+    footer = "vkunssec ©"
+    # enable_toc = false
+    enable_collapsible_toc = true
+    # enable_collapsible_changelogs = true
+
+[build]
+    noJSConfigInAssets = true
+
