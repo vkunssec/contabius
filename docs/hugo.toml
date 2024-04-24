@@ -7,13 +7,28 @@ theme = 'hugo-theme-monochrome'
     home = ["HTML", "RSS", "JSON"]
 
 [params]
+    author = "vkunssec"
     enable_site_search = true
     color_scheme = "dark"
     footer = "vkunssec ©"
-    # enable_toc = false
     enable_collapsible_toc = true
-    # enable_collapsible_changelogs = true
 
 [build]
     noJSConfigInAssets = true
 
+[[menu.navbar]]
+    identifier = "home"
+    name = "Página Principal"
+    url = "/"
+    weight = 1
+[[menu.navbar]]
+    identifier = "account"
+    name = "Contas"
+    url = "/account/"
+    weight = 2
+    [[menu.navbar]]
+        identifier = "account_routes"
+        name = "Assinatura de Rotas"
+        url = "/account/routes/"
+        parent = "account"
+        weight = 3

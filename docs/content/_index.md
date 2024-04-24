@@ -1,11 +1,11 @@
 ---
-type: "postcard"
+type: "bookcase"
 outputs:
     - html
     - rss
-    - json
+    # - json
 ---
 
 ## Sistema de Controle
-
+Ideia inicial de um projeto de controle de contas e gastos, em desenvolvimento.
 
