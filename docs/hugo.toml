@@ -1,4 +1,4 @@
-baseURL = '/docs'
+baseURL = 'https://contabius-h7jpgeybda-uc.a.run.app/docs'
 languageCode = 'pt-br'
 title = 'contabius'
 theme = 'hugo-theme-monochrome'
