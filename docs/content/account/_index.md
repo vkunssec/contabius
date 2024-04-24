@@ -6,7 +6,7 @@ bookcase_cover_src_dark: "cover/catalogue_dark.png"
 outputs:
     - html
     - rss
-    # - json
+    - json
 ---
 
 

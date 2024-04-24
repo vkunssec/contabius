@@ -13,6 +13,23 @@ theme = 'hugo-theme-monochrome'
     footer = "vkunssec ©"
     enable_collapsible_toc = true
 
+    [params.list_layout]
+        enable_group_by_year = false
+        enable_show_date = false
+        enable_pagination = false
+
+
+    [params.syntax_highlight]
+        lib = "prism.js"
+
+        [params.syntax_highlight.builtin]
+            enable_code_copy = true
+
+        [params.syntax_highlight.prism]
+            enable_code_copy = true
+            enable_line_no = false
+
+
 [build]
     noJSConfigInAssets = true
 

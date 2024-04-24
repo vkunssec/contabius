@@ -2,6 +2,10 @@
 title: "Assinatura de Rotas"
 type: "blank"
 date: 2024-04-23
+outputs:
+    - html
+    - rss
+    - json
 ---
 
 
@@ -34,7 +38,7 @@ Rota de retorno de uma ou mais contas
 
 Caso não seja informado nenhum ID, serão retornados todos os valores cadastrados.
 Query Params:
-```
+```json
 ids[] (opcional): IDS das contas salvas
 
 ```
@@ -64,7 +68,7 @@ Retorno esperado:
 Método de atualização de uma conta
 
 Path Variável:
-```
+```json
 id: ID da conta
 
 ```
@@ -91,7 +95,7 @@ Retorno esperado:
 Método para exclusão de uma conta
 
 Path Variável:
-```
+```json
 id: ID da conta
 
 ```

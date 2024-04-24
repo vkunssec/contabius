@@ -3,7 +3,7 @@ type: "bookcase"
 outputs:
     - html
     - rss
-    # - json
+    - json
 ---
 
 ## Sistema de Controle
