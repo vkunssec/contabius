@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  contabius:
+    container_name: contabius
+    restart: always
+    image: contabius:latest
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: prd
+      tags:
+        - contabius:latest
+    ports:
+      - $PORT:$PORT
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data:/data/db
