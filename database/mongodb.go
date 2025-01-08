@@ -1,10 +1,11 @@
 package database
 
 import (
-	"contabius/configs"
 	"context"
 	"encoding/json"
 	"log/slog"
+
+	"github.com/vkunssec/contabius/configs"
 
 	"go.mongodb.org/mongo-driver/event"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -42,28 +43,31 @@ func MongoDBConnection(ctx context.Context) error {
 			Started: func(_ context.Context, e *event.CommandStartedEvent) {
 				if e.CommandName != "endSessions" && e.CommandName != "ping" {
 					command := e.Command.String()
-
 					var commandJson map[string]interface{}
-					json.Unmarshal([]byte(command), &commandJson)
+					err := json.Unmarshal([]byte(command), &commandJson)
+					if err != nil {
+						cfg.Log.Error("Error unmarshalling command", "error", err)
+						return
+					}
 					r, _ := json.MarshalIndent(&commandJson, "", "  ")
-
 					cfg.Log.Info(string(r))
 				}
 			},
 			Succeeded: func(_ context.Context, e *event.CommandSucceededEvent) {
 				if e.CommandName != "endSessions" && e.CommandName != "ping" {
 					command := e.Reply.String()
-
 					var commandJson map[string]interface{}
-					json.Unmarshal([]byte(command), &commandJson)
+					err := json.Unmarshal([]byte(command), &commandJson)
+					if err != nil {
+						cfg.Log.Error("Error unmarshalling command", "error", err)
+						return
+					}
 					r, _ := json.MarshalIndent(&commandJson, "", "  ")
-
 					cfg.Log.Info(string(r))
 				}
 			},
 			Failed: func(context.Context, *event.CommandFailedEvent) {},
 		}
-
 		options.SetMonitor(monitor)
 	}
 

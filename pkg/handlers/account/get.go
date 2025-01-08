@@ -1,15 +1,25 @@
 package handlers
 
 import (
-	"contabius/pkg/repository"
+	"github.com/vkunssec/contabius/pkg/repository"
 
 	"github.com/gofiber/fiber/v2"
+
+	_ "github.com/vkunssec/contabius/docs"
 )
 
 type QueryParams struct {
 	Ids []string `query:"ids"`
 }
 
+// GetBankAccount é uma função que retorna as contas bancárias
+// @description Rota para retornar as contas bancárias
+// @tags Account
+// @accept json
+// @produce json
+// @security ApiKeyAuth
+// @in header
+// @name Authorization
 func GetBankAccount(ctx *fiber.Ctx) error {
 	queries := new(QueryParams)
 	ctx.QueryParser(queries)

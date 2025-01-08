@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"contabius/pkg/repository"
-	"contabius/pkg/structs"
+	"github.com/vkunssec/contabius/pkg/repository"
+	"github.com/vkunssec/contabius/pkg/structs"
 
 	"github.com/gofiber/fiber/v2"
 )

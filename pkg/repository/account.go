@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"contabius/pkg/structs"
-	"contabius/tools"
+	"github.com/vkunssec/contabius/pkg/structs"
+	"github.com/vkunssec/contabius/tools"
 
 	"context"
 	"time"
@@ -56,21 +56,8 @@ func UpdateBankAccount(id string, newAccount *structs.Accounts) (structs.Account
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	var account structs.Accounts
-
 	filter := bson.M{"_id": tools.StringToObjectId(id)}
 
-	result := tools.FindOne(ctx, Collection, filter, options.FindOne())
-	result.Decode(&account)
-
-	if newAccount.Account == "" {
-		newAccount.Account = account.Account
-	}
-	if newAccount.Color == "" {
-		newAccount.Color = account.Color
-	}
-
-	newAccount.CreatedAt = account.CreatedAt
 	newAccount.UpdatedAt = time.Now()
 
 	_, err := tools.UpdateOne(ctx, Collection, filter, newAccount)

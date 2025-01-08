@@ -1,9 +1,10 @@
 package tools
 
 import (
-	"contabius/database"
 	"context"
 	"log"
+
+	"github.com/vkunssec/contabius/database"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -29,7 +30,7 @@ func ArrayStringToObjectId(arrString []string) []primitive.ObjectID {
 
 func InsertOne(ctx context.Context, collection string, values interface{}) (*mongo.InsertOneResult, error) {
 	return database.MongoDB.
-		Collection("bank_account").
+		Collection(collection).
 		InsertOne(ctx, values)
 }
 
