@@ -2,9 +2,9 @@ package tools
 
 import (
 	"context"
-	"log"
 
 	"github.com/vkunssec/contabius/database"
+	"github.com/vkunssec/contabius/utils/logger"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -15,7 +15,7 @@ import (
 func StringToObjectId(id string) primitive.ObjectID {
 	s, e := primitive.ObjectIDFromHex(id)
 	if e != nil {
-		log.Panic(e)
+		logger.Logger.Error().Err(e).Send()
 	}
 	return s
 }

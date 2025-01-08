@@ -1,7 +1,6 @@
 package middleware
 
 import (
-	"log"
 	"strings"
 
 	"github.com/vkunssec/contabius/configs"
@@ -17,11 +16,7 @@ func Swagger(app *fiber.App) {
 		return
 	}
 
-	log.Println("Swagger is enabled")
-
 	swaggerJSON := docs.SwaggerInfo.ReadDoc()
-
-	log.Println("Swagger JSON: ", swaggerJSON)
 
 	app.Get("/docs/swagger.json", func(c *fiber.Ctx) error {
 		modifiedJSON := strings.Replace(swaggerJSON, "${HOST}", configs.Host, -1)

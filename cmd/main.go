@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"log"
 
 	"github.com/vkunssec/contabius/configs"
 	"github.com/vkunssec/contabius/database"
 	"github.com/vkunssec/contabius/pkg/middleware"
 	"github.com/vkunssec/contabius/pkg/router"
+	"github.com/vkunssec/contabius/utils/logger"
 
 	"github.com/gofiber/fiber/v2"
 
@@ -34,17 +34,21 @@ import (
 // @name Authorization
 // @description Bearer token authentication
 func main() {
+	logger.SetupLogger()
+
 	ctx := context.Background()
 	openConnections(ctx)
 
 	app := startServer()
-	app.Listen(":" + configs.Env("PORT"))
+	if err := app.Listen(":" + configs.Env("PORT")); err != nil {
+		logger.Logger.Error().Err(err).Send()
+	}
 }
 
 func openConnections(ctx context.Context) {
 	err := database.MongoDBConnection(ctx)
 	if err != nil {
-		log.Fatal(err)
+		logger.Logger.Error().Err(err).Send()
 	}
 }
 

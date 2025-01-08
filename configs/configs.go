@@ -1,10 +1,10 @@
 package configs
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/vkunssec/contabius/utils/logger"
 )
 
 const (
@@ -18,7 +18,7 @@ var (
 func Env(key string) string {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Println(".env file not exists")
+		logger.Logger.Error().Err(err).Msg(".env file not exists")
 	}
 	return os.Getenv(key)
 }
