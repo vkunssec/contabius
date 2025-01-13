@@ -1,17 +1,75 @@
 basePath: /
+definitions:
+  github_com_vkunssec_contabius_pkg_domain.Accounts:
+    properties:
+      account:
+        type: string
+      color:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: string
+      updated_at:
+        type: string
+    type: object
 host: ${HOST}
 info:
   contact:
     name: API Support
     url: https://vkunssec.vercel.app
-  description: API para gerenciamento de contas bancárias
+  description: API para gerenciamento de gastos e informações financeiras
   license:
     name: MIT
     url: https://github.com/vkunssec/contabius/blob/main/LICENSE
   termsOfService: http://swagger.io/terms/
   title: Contabius API
   version: "1.0"
-paths: {}
+paths:
+  /account:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar as contas bancárias
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Ids das contas bancárias a serem retornadas
+        example:
+        - "1"
+        - "2"
+        - "3"
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            type: object
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar as contas bancárias
+      tags:
+      - Account
 schemes:
 - http
 - https

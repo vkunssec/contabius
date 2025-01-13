@@ -9,14 +9,9 @@ import (
 )
 
 // AccountRoutes é uma função que define as rotas para a entidade Account
-// @description Rota para a entidade Account
-// @tags Account
-// @accept json
-// @produce json
-// @security ApiKeyAuth
-// @in header
-// @name Authorization
-func AccountRoutes(app fiber.Router) {
+// @Summary Rota para a entidade Account
+// @Description Rota para a entidade Account
+func AccountRoutes(app *fiber.App) {
 	app.Get(
 		"/account",
 		handlers.GetBankAccount)

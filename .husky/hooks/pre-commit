@@ -78,8 +78,7 @@ main() {
     run_command "go mod tidy" "go mod tidy"
     run_command "go fmt ./..." "go fmt"
     run_command "go vet ./..." "go vet"
-    # TODO: ajustar o código com as regras do golangci-lint
-    # run_command "golangci-lint run ./..." "golangci-lint run"
+    run_command "golangci-lint run ./..." "golangci-lint run"
     run_command "swag init -g cmd/main.go --parseDependency --parseInternal --quiet" "swagger"
 
     log "Pre-commit finished successfully!"

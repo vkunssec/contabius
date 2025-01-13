@@ -3,39 +3,44 @@ package handlers
 import (
 	"time"
 
-	"github.com/vkunssec/contabius/pkg/structs"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/vkunssec/contabius/pkg/domain"
+	"github.com/vkunssec/contabius/pkg/domain/common"
 )
 
 func CreateWallet(ctx *fiber.Ctx) error {
-	wallet := new(structs.Wallet)
-	ctx.BodyParser(wallet)
+	wallet := new(domain.Wallet)
+	if err := ctx.BodyParser(wallet); err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
+			Message: err.Error(),
+			Success: false,
+		})
+	}
 
 	installment := 1
 	now := time.Now()
 
 	wallet.Month = time.Now().Month()
-	wallet.Revenues = []structs.Revenues{{
+	wallet.Revenues = []domain.Revenues{{
 		Revenue:   "Vylex",
-		Amount:    structs.Money{Quantity: 506890, Currency: "BRL"},
+		Amount:    domain.Money{Quantity: 500000, Currency: "BRL"},
 		CreatedAt: now,
 		UpdatedAt: now,
 	}}
-	wallet.Costs = []structs.Costs{{
+	wallet.Costs = []domain.Costs{{
 		Cost:         "uber",
-		Amount:       structs.Money{Quantity: 3600, Currency: "BRL"},
+		Amount:       domain.Money{Quantity: 3600, Currency: "BRL"},
 		Installments: &installment,
-		Payment:      structs.Methods{Method: "credit", CreatedAt: now, UpdatedAt: now},
-		Category:     structs.Categories{Grade: "Transporte", CreatedAt: now, UpdatedAt: now},
+		Payment:      domain.Methods{Method: "credit", CreatedAt: now, UpdatedAt: now},
+		Category:     domain.Categories{Grade: "Transporte", CreatedAt: now, UpdatedAt: now},
 		CreatedAt:    now,
 		UpdatedAt:    now,
 	}, {
 		Cost:         "padaria",
-		Amount:       structs.Money{Quantity: 1572, Currency: "BRL"},
+		Amount:       domain.Money{Quantity: 1572, Currency: "BRL"},
 		Installments: &installment,
-		Payment:      structs.Methods{Method: "debit", CreatedAt: now, UpdatedAt: now},
-		Category:     structs.Categories{Grade: "Alimentação", CreatedAt: now, UpdatedAt: now},
+		Payment:      domain.Methods{Method: "debit", CreatedAt: now, UpdatedAt: now},
+		Category:     domain.Categories{Grade: "Alimentação", CreatedAt: now, UpdatedAt: now},
 		CreatedAt:    now,
 		UpdatedAt:    now,
 	}}

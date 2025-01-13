@@ -1,7 +1,9 @@
 package repository
 
 import (
-	"github.com/vkunssec/contabius/pkg/structs"
+	"errors"
+
+	"github.com/vkunssec/contabius/pkg/domain"
 	"github.com/vkunssec/contabius/tools"
 
 	"context"
@@ -16,7 +18,7 @@ const (
 	Collection = "bank_account"
 )
 
-func CreateBankAccount(account *structs.Accounts) (structs.Accounts, error) {
+func CreateBankAccount(account *domain.Accounts) (domain.Accounts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -30,11 +32,11 @@ func CreateBankAccount(account *structs.Accounts) (structs.Accounts, error) {
 	return *account, err
 }
 
-func GetBankAccount(ids []string) ([]structs.Accounts, error) {
+func GetBankAccount(ids []string) ([]domain.Accounts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	var accounts []structs.Accounts
+	var accounts []domain.Accounts
 	filters := bson.M{}
 
 	if len(ids) > 0 {
@@ -52,7 +54,7 @@ func GetBankAccount(ids []string) ([]structs.Accounts, error) {
 	return accounts, err
 }
 
-func UpdateBankAccount(id string, newAccount *structs.Accounts) (structs.Accounts, error) {
+func UpdateBankAccount(id string, newAccount *domain.Accounts) (domain.Accounts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -60,9 +62,16 @@ func UpdateBankAccount(id string, newAccount *structs.Accounts) (structs.Account
 
 	newAccount.UpdatedAt = time.Now()
 
-	_, err := tools.UpdateOne(ctx, Collection, filter, newAccount)
+	res, err := tools.UpdateOne(ctx, Collection, filter, newAccount)
+	if err != nil {
+		return domain.Accounts{}, err
+	}
 
-	return *newAccount, err
+	if res.ModifiedCount > 0 {
+		return *newAccount, nil
+	}
+
+	return domain.Accounts{}, errors.New("conta bancária não encontrada")
 }
 
 func DeleteBankAccount(id string) (bool, error) {

@@ -16,7 +16,7 @@ import (
 
 // @title Contabius API
 // @version 1.0
-// @description API para gerenciamento de contas bancárias
+// @description API para gerenciamento de gastos e informações financeiras
 // @termsOfService http://swagger.io/terms/
 
 // @contact.name API Support
@@ -40,7 +40,7 @@ func main() {
 	openConnections(ctx)
 
 	app := startServer()
-	if err := app.Listen(":" + configs.Env("PORT")); err != nil {
+	if err := app.Listen(":" + configs.GetEnvOrDefault("PORT", "8080")); err != nil {
 		logger.Logger.Error().Err(err).Send()
 	}
 }

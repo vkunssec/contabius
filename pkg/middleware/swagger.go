@@ -29,7 +29,7 @@ func Swagger(app *fiber.App) {
 		html, err := scalar.ApiReferenceHTML(&scalar.Options{
 			SpecURL: host + "/docs/swagger.json",
 			CustomOptions: scalar.CustomOptions{
-				PageTitle: "CofCards API Documentation",
+				PageTitle: "Contabius API Documentation",
 			},
 			DarkMode: true,
 		})
