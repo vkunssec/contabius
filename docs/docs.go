@@ -56,9 +56,7 @@ const docTemplate = `{
                         },
                         "collectionFormat": "csv",
                         "example": [
-                            "1",
-                            "2",
-                            "3"
+                            "678079f6f5080a39a8eedc1e"
                         ],
                         "description": "Ids das contas bancárias a serem retornadas",
                         "name": "ids",
@@ -78,13 +76,166 @@ const docTemplate = `{
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para criar uma conta bancária",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Rota para criar uma conta bancária",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da conta bancária",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
                         }
                     },
-                    "401": {
-                        "description": "Unauthorized",
+                    "400": {
+                        "description": "Bad Request",
                         "schema": {
-                            "type": "object"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para deletar uma conta bancária",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Rota para deletar uma conta bancária",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID da conta bancária",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para atualizar uma conta bancária",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Account"
+                ],
+                "summary": "Rota para atualizar uma conta bancária",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da conta bancária",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID da conta bancária",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
                         }
                     }
                 }
@@ -109,6 +260,41 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "type": "string"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain_common.BadRequest": {
+            "description": "Estrutura padrão de resposta de erro de requisição",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "description": "Mensagem descritiva",
+                    "type": "string",
+                    "example": "Erro ao processar a requisição"
+                },
+                "success": {
+                    "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain_common.Response": {
+            "description": "Estrutura padrão de resposta",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "Dados da resposta"
+                },
+                "message": {
+                    "description": "Mensagem descritiva",
+                    "type": "string",
+                    "example": "Operação realizada com sucesso"
+                },
+                "success": {
+                    "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": true
                 }
             }
         }

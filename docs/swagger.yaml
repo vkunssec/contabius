@@ -13,6 +13,32 @@ definitions:
       updated_at:
         type: string
     type: object
+  github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
+    description: Estrutura padrão de resposta de erro de requisição
+    properties:
+      message:
+        description: Mensagem descritiva
+        example: Erro ao processar a requisição
+        type: string
+      success:
+        description: Indica se a operação foi bem sucedida
+        example: false
+        type: boolean
+    type: object
+  github_com_vkunssec_contabius_pkg_domain_common.Response:
+    description: Estrutura padrão de resposta
+    properties:
+      data:
+        description: Dados da resposta
+      message:
+        description: Mensagem descritiva
+        example: Operação realizada com sucesso
+        type: string
+      success:
+        description: Indica se a operação foi bem sucedida
+        example: true
+        type: boolean
+    type: object
 host: ${HOST}
 info:
   contact:
@@ -40,9 +66,7 @@ paths:
       - collectionFormat: csv
         description: Ids das contas bancárias a serem retornadas
         example:
-        - "1"
-        - "2"
-        - "3"
+        - 678079f6f5080a39a8eedc1e
         in: query
         items:
           type: string
@@ -60,14 +84,112 @@ paths:
         "400":
           description: Bad Request
           schema:
-            type: object
-        "401":
-          description: Unauthorized
-          schema:
-            type: object
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar as contas bancárias
+      tags:
+      - Account
+    post:
+      consumes:
+      - application/json
+      description: Rota para criar uma conta bancária
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da conta bancária
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para criar uma conta bancária
+      tags:
+      - Account
+  /account/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Rota para deletar uma conta bancária
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID da conta bancária
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para deletar uma conta bancária
+      tags:
+      - Account
+  /account/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar uma conta bancária
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da conta bancária
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+      - description: ID da conta bancária
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar uma conta bancária
       tags:
       - Account
 schemes:
