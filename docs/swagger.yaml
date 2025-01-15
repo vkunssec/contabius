@@ -3,14 +3,37 @@ definitions:
   github_com_vkunssec_contabius_pkg_domain.Accounts:
     properties:
       account:
+        example: Conta Corrente
         type: string
       color:
+        example: '#000000'
         type: string
       created_at:
+        example: "2025-01-01T00:00:00Z"
         type: string
       id:
+        example: 678079f6f5080a39a8eedc1e
         type: string
       updated_at:
+        example: "2025-01-01T00:00:00Z"
+        type: string
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.Categories:
+    properties:
+      category:
+        example: Alimentação
+        type: string
+      created_at:
+        example: "2025-01-01T00:00:00Z"
+        type: string
+      id:
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+      parent:
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+      updated_at:
+        example: "2025-01-01T00:00:00Z"
         type: string
     type: object
   github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
@@ -19,6 +42,18 @@ definitions:
       message:
         description: Mensagem descritiva
         example: Erro ao processar a requisição
+        type: string
+      success:
+        description: Indica se a operação foi bem sucedida
+        example: false
+        type: boolean
+    type: object
+  github_com_vkunssec_contabius_pkg_domain_common.InternalServerError:
+    description: Estrutura padrão de resposta de erro de servidor interno
+    properties:
+      message:
+        description: Mensagem descritiva
+        example: Internal Server Error
         type: string
       success:
         description: Indica se a operação foi bem sucedida
@@ -192,6 +227,43 @@ paths:
       summary: Rota para atualizar uma conta bancária
       tags:
       - Account
+  /category:
+    post:
+      consumes:
+      - application/json
+      description: Rota para criar uma categoria
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da categoria
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para criar uma categoria
+      tags:
+      - Category
 schemes:
 - http
 - https

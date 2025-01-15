@@ -238,6 +238,64 @@
                     }
                 }
             }
+        },
+        "/category": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para criar uma categoria",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Rota para criar uma categoria",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da categoria",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -245,19 +303,49 @@
             "type": "object",
             "properties": {
                 "account": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "Conta Corrente"
                 },
                 "color": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "#000000"
                 },
                 "created_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
                 },
                 "id": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
                 },
                 "updated_at": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Categories": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "type": "string",
+                    "example": "Alimentação"
+                },
+                "created_at": {
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                },
+                "parent": {
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
                 }
             }
         },
@@ -269,6 +357,22 @@
                     "description": "Mensagem descritiva",
                     "type": "string",
                     "example": "Erro ao processar a requisição"
+                },
+                "success": {
+                    "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain_common.InternalServerError": {
+            "description": "Estrutura padrão de resposta de erro de servidor interno",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "description": "Mensagem descritiva",
+                    "type": "string",
+                    "example": "Internal Server Error"
                 },
                 "success": {
                     "description": "Indica se a operação foi bem sucedida",
