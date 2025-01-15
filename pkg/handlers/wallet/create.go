@@ -32,7 +32,7 @@ func CreateWallet(ctx *fiber.Ctx) error {
 		Amount:       domain.Money{Quantity: 3600, Currency: "BRL"},
 		Installments: &installment,
 		Payment:      domain.Methods{Method: "credit", CreatedAt: now, UpdatedAt: now},
-		Category:     domain.Categories{Grade: "Transporte", CreatedAt: now, UpdatedAt: now},
+		Category:     domain.Categories{Category: "Transporte", CreatedAt: now, UpdatedAt: now},
 		CreatedAt:    now,
 		UpdatedAt:    now,
 	}, {
@@ -40,7 +40,7 @@ func CreateWallet(ctx *fiber.Ctx) error {
 		Amount:       domain.Money{Quantity: 1572, Currency: "BRL"},
 		Installments: &installment,
 		Payment:      domain.Methods{Method: "debit", CreatedAt: now, UpdatedAt: now},
-		Category:     domain.Categories{Grade: "Alimentação", CreatedAt: now, UpdatedAt: now},
+		Category:     domain.Categories{Category: "Alimentação", CreatedAt: now, UpdatedAt: now},
 		CreatedAt:    now,
 		UpdatedAt:    now,
 	}}

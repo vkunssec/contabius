@@ -1,10 +1,11 @@
 package handlers
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"github.com/vkunssec/contabius/pkg/domain/common"
 	"github.com/vkunssec/contabius/pkg/repository"
 
-	"github.com/gofiber/fiber/v2"
+	_ "github.com/vkunssec/contabius/docs"
 )
 
 // deleteParams é a estrutura que contém os parâmetros da requisição

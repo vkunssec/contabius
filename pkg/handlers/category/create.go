@@ -9,37 +9,38 @@ import (
 	_ "github.com/vkunssec/contabius/docs"
 )
 
-// CreateAccount é uma função que cria uma conta bancária
-// @Summary Rota para criar uma conta bancária
-// @Description Rota para criar uma conta bancária
-// @Tags Account
+// CreateCategory é uma função que cria uma categoria
+// @Summary Rota para criar uma categoria
+// @Description Rota para criar uma categoria
+// @Tags Category
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.Accounts true "Dados da conta bancária"
+// @Param request body domain.Categories true "Dados da categoria"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
-// @Router /account [post]
-func CreateAccount(ctx *fiber.Ctx) error {
-	account := new(domain.Accounts)
-	if err := ctx.BodyParser(account); err != nil {
+// @Failure 500 {object} common.InternalServerError
+// @Router /category [post]
+func CreateCategory(ctx *fiber.Ctx) error {
+	category := new(domain.Categories)
+	if err := ctx.BodyParser(category); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
 			Message: err.Error(),
 			Success: false,
 		})
 	}
 
-	saved, err := repository.CreateBankAccount(account)
+	saved, err := repository.CreateCategory(category)
 	if err != nil {
-		return ctx.Status(fiber.StatusBadGateway).JSON(common.BadRequest{
+		return ctx.Status(fiber.StatusInternalServerError).JSON(common.InternalServerError{
 			Message: err.Error(),
 			Success: false,
 		})
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(common.Response{
-		Message: "Conta bancária criada com sucesso",
+		Message: "Categoria criada com sucesso",
 		Success: true,
 		Data:    saved,
 	})

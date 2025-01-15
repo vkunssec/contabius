@@ -6,6 +6,8 @@ import (
 	"github.com/vkunssec/contabius/pkg/repository"
 
 	"github.com/gofiber/fiber/v2"
+
+	_ "github.com/vkunssec/contabius/docs"
 )
 
 // updateParams é a estrutura que contém os parâmetros da requisição
