@@ -74,6 +74,22 @@ definitions:
         example: true
         type: boolean
     type: object
+  pkg_handlers_category.GetCategoriesResponse:
+    properties:
+      categories:
+        description: Dados das categorias
+        items:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+        type: array
+      message:
+        description: Mensagem de sucesso ou erro
+        example: Categorias retornadas com sucesso
+        type: string
+      success:
+        description: Sucesso da operação
+        example: true
+        type: boolean
+    type: object
 host: ${HOST}
 info:
   contact:
@@ -228,6 +244,41 @@ paths:
       tags:
       - Account
   /category:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar todas as categorias
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Ids das categorias a serem retornadas
+        example:
+        - 678079f6f5080a39a8eedc1e
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg_handlers_category.GetCategoriesResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar todas as categorias
+      tags:
+      - Category
     post:
       consumes:
       - application/json

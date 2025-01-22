@@ -240,6 +240,60 @@
             }
         },
         "/category": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para retornar todas as categorias",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Rota para retornar todas as categorias",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "example": [
+                            "678079f6f5080a39a8eedc1e"
+                        ],
+                        "description": "Ids das categorias a serem retornadas",
+                        "name": "ids",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pkg_handlers_category.GetCategoriesResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
@@ -395,6 +449,28 @@
                 },
                 "success": {
                     "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "pkg_handlers_category.GetCategoriesResponse": {
+            "type": "object",
+            "properties": {
+                "categories": {
+                    "description": "Dados das categorias",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
+                    }
+                },
+                "message": {
+                    "description": "Mensagem de sucesso ou erro",
+                    "type": "string",
+                    "example": "Categorias retornadas com sucesso"
+                },
+                "success": {
+                    "description": "Sucesso da operação",
                     "type": "boolean",
                     "example": true
                 }
