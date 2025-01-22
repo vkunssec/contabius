@@ -11,9 +11,9 @@ import (
 // @Summary Rota para a entidade Category
 // @Description Rota para a entidade Category
 func CategoryRoutes(app fiber.Router) {
-	// app.Get(
-	// 	"/category",
-	// 	handlers.GetCategory)
+	app.Get(
+		"/category",
+		handlers.GetCategory)
 	app.Post(
 		"/category",
 		handlers.CreateCategory)
