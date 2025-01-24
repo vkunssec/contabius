@@ -357,22 +357,27 @@
             "type": "object",
             "properties": {
                 "account": {
+                    "description": "Nome da conta",
                     "type": "string",
                     "example": "Conta Corrente"
                 },
                 "color": {
+                    "description": "Cor da conta",
                     "type": "string",
                     "example": "#000000"
                 },
                 "created_at": {
+                    "description": "Data de criação",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
                 },
                 "id": {
+                    "description": "ID da conta",
                     "type": "string",
                     "example": "678079f6f5080a39a8eedc1e"
                 },
                 "updated_at": {
+                    "description": "Data de atualização",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
                 }
@@ -382,22 +387,27 @@
             "type": "object",
             "properties": {
                 "category": {
+                    "description": "Nome da categoria",
                     "type": "string",
                     "example": "Alimentação"
                 },
                 "created_at": {
+                    "description": "Data de criação",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
                 },
                 "id": {
+                    "description": "ID da categoria",
                     "type": "string",
                     "example": "678079f6f5080a39a8eedc1e"
                 },
                 "parent": {
+                    "description": "ID do pai da categoria",
                     "type": "string",
                     "example": "678079f6f5080a39a8eedc1e"
                 },
                 "updated_at": {
+                    "description": "Data de atualização",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
                 }

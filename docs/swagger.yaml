@@ -3,36 +3,46 @@ definitions:
   github_com_vkunssec_contabius_pkg_domain.Accounts:
     properties:
       account:
+        description: Nome da conta
         example: Conta Corrente
         type: string
       color:
+        description: Cor da conta
         example: '#000000'
         type: string
       created_at:
+        description: Data de criação
         example: "2025-01-01T00:00:00Z"
         type: string
       id:
+        description: ID da conta
         example: 678079f6f5080a39a8eedc1e
         type: string
       updated_at:
+        description: Data de atualização
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
   github_com_vkunssec_contabius_pkg_domain.Categories:
     properties:
       category:
+        description: Nome da categoria
         example: Alimentação
         type: string
       created_at:
+        description: Data de criação
         example: "2025-01-01T00:00:00Z"
         type: string
       id:
+        description: ID da categoria
         example: 678079f6f5080a39a8eedc1e
         type: string
       parent:
+        description: ID do pai da categoria
         example: 678079f6f5080a39a8eedc1e
         type: string
       updated_at:
+        description: Data de atualização
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
