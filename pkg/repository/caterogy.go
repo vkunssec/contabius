@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/vkunssec/contabius/pkg/domain"
@@ -45,4 +46,38 @@ func GetCategory(ids []string) ([]domain.Categories, error) {
 
 	err = cursor.All(ctx, &categories)
 	return categories, err
+}
+
+func UpdateCategory(id string, newCategory *domain.Categories) (domain.Categories, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	filter := bson.M{"_id": tools.StringToObjectId(id)}
+
+	newCategory.UpdatedAt = time.Now()
+
+	res, err := tools.UpdateOne(ctx, Collection, filter, newCategory)
+	if err != nil {
+		return domain.Categories{}, err
+	}
+
+	if res.ModifiedCount > 0 {
+		return *newCategory, nil
+	}
+
+	return domain.Categories{}, errors.New("categoria não encontrada")
+}
+
+func DeleteCategory(id string) (bool, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	filter := bson.M{"_id": tools.StringToObjectId(id)}
+
+	res, err := tools.DeleteOne(ctx, Collection, filter)
+
+	if res.DeletedCount > 0 {
+		return true, err
+	}
+	return false, err
 }

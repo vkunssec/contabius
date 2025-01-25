@@ -1,37 +1,36 @@
 package handlers
 
 import (
+	"github.com/gofiber/fiber/v2"
 	"github.com/vkunssec/contabius/pkg/domain"
 	"github.com/vkunssec/contabius/pkg/domain/common"
 	"github.com/vkunssec/contabius/pkg/repository"
-
-	"github.com/gofiber/fiber/v2"
 
 	_ "github.com/vkunssec/contabius/docs"
 )
 
 // updateParams é a estrutura que contém os parâmetros da requisição
-// @Description Parâmetros da requisição para atualizar uma conta bancária
+// @Description Parâmetros da requisição para atualizar uma categoria
 type updateParams struct {
-	Id string `params:"id"` // ID da conta bancária
+	Id string `params:"id"` // ID da categoria
 }
 
-// UpdateAccount é uma função que atualiza uma conta bancária
-// @Summary Rota para atualizar uma conta bancária
-// @Description Rota para atualizar uma conta bancária
-// @Tags Account
+// UpdateCategory é uma função que atualiza uma categoria
+// @Summary Rota para atualizar uma categoria
+// @Description Rota para atualizar uma categoria
+// @Tags Category
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.Accounts true "Dados da conta bancária"
-// @Param id path string true "ID da conta bancária"
+// @Param request body domain.Categories true "Dados da categoria"
+// @Param id path string true "ID da categoria"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
-// @Router /account/update/{id} [put]
-func UpdateAccount(ctx *fiber.Ctx) error {
-	account := new(domain.Accounts)
-	if err := ctx.BodyParser(account); err != nil {
+// @Router /category/update/{id} [put]
+func UpdateCategory(ctx *fiber.Ctx) error {
+	category := new(domain.Categories)
+	if err := ctx.BodyParser(category); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
 			Message: err.Error(),
 			Success: false,
@@ -45,7 +44,7 @@ func UpdateAccount(ctx *fiber.Ctx) error {
 		})
 	}
 
-	updated, err := repository.UpdateBankAccount(params.Id, account)
+	updated, err := repository.UpdateCategory(params.Id, category)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadGateway).JSON(common.BadRequest{
 			Message: err.Error(),
@@ -54,7 +53,7 @@ func UpdateAccount(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(common.Response{
-		Message: "Conta bancária atualizada com sucesso",
+		Message: "Categoria atualizada com sucesso",
 		Success: true,
 		Data:    updated,
 	})

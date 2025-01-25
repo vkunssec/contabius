@@ -17,10 +17,10 @@ func CategoryRoutes(app fiber.Router) {
 	app.Post(
 		"/category",
 		handlers.CreateCategory)
-	// app.Put(
-	// 	"/category/update/:id",
-	// 	handlers.UpdateCategory)
-	// app.Delete(
-	// 	"/category/remove/:id",
-	// 	handlers.DeleteCategory)
+	app.Put(
+		"/category/update/:id",
+		handlers.UpdateCategory)
+	app.Delete(
+		"/category/remove/:id",
+		handlers.DeleteCategory)
 }
