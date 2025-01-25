@@ -491,11 +491,21 @@ const docTemplate = `{
                     {
                         "type": "array",
                         "items": {
-                            "type": "string"
+                            "enum": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4
+                            ],
+                            "type": "integer"
                         },
                         "collectionFormat": "csv",
                         "example": [
-                            "678079f6f5080a39a8eedc1e"
+                            0,
+                            1,
+                            2,
+                            3
                         ],
                         "description": "Ids dos métodos a serem retornados",
                         "name": "ids",
@@ -513,171 +523,6 @@ const docTemplate = `{
                         "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Rota para criar um método",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Methods"
-                ],
-                "summary": "Rota para criar um método",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Token Bearer",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Dados do método",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
-                        }
-                    }
-                }
-            }
-        },
-        "/methods/delete/{id}": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Rota para deletar um método",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Methods"
-                ],
-                "summary": "Rota para deletar um método",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Token Bearer",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "ID do método",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
-                        }
-                    }
-                }
-            }
-        },
-        "/methods/update/{id}": {
-            "put": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Rota para atualizar um método",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Methods"
-                ],
-                "summary": "Rota para atualizar um método",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Token Bearer",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "description": "Dados do método",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "description": "ID do método",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
                         }
                     }
                 }
@@ -762,18 +607,34 @@ const docTemplate = `{
                 "MethodCash"
             ]
         },
+        "github_com_vkunssec_contabius_pkg_domain.MethodId": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2,
+                3,
+                4
+            ],
+            "x-enum-varnames": [
+                "MethodCreditId",
+                "MethodDebitId",
+                "MethodPixId",
+                "MethodBoletoId",
+                "MethodCashId"
+            ]
+        },
         "github_com_vkunssec_contabius_pkg_domain.Methods": {
             "type": "object",
             "properties": {
-                "created_at": {
-                    "description": "Data de criação",
-                    "type": "string",
-                    "example": "2025-01-01T00:00:00Z"
-                },
                 "id": {
                     "description": "ID do método de pagamento",
-                    "type": "string",
-                    "example": "678079f6f5080a39a8eedc1e"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.MethodId"
+                        }
+                    ],
+                    "example": 1
                 },
                 "method": {
                     "description": "Método de pagamento",
@@ -783,11 +644,6 @@ const docTemplate = `{
                         }
                     ],
                     "example": "credit"
-                },
-                "updated_at": {
-                    "description": "Data de atualização",
-                    "type": "string",
-                    "example": "2025-01-01T00:00:00Z"
                 }
             }
         },
