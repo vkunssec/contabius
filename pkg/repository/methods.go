@@ -15,25 +15,25 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func CreateBankAccount(account *domain.Accounts) (domain.Accounts, error) {
+func CreateMethod(method *domain.Methods) (domain.Methods, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	account.CreatedAt = time.Now()
-	account.UpdatedAt = time.Now()
+	method.CreatedAt = time.Now()
+	method.UpdatedAt = time.Now()
 
-	result, err := tools.InsertOne(ctx, constant.CollectionBank, account)
+	result, err := tools.InsertOne(ctx, constant.CollectionMethod, method)
 
-	account.Id = result.InsertedID.(primitive.ObjectID).Hex()
+	method.Id = result.InsertedID.(primitive.ObjectID).Hex()
 
-	return *account, err
+	return *method, err
 }
 
-func GetBankAccount(ids []string) ([]domain.Accounts, error) {
+func GetMethod(ids []string) ([]domain.Methods, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	var accounts []domain.Accounts
+	var methods []domain.Methods
 	filters := bson.M{}
 
 	if len(ids) > 0 {
@@ -42,42 +42,42 @@ func GetBankAccount(ids []string) ([]domain.Accounts, error) {
 		}
 	}
 
-	cursor, err := tools.Find(ctx, constant.CollectionBank, filters, options.Find())
+	cursor, err := tools.Find(ctx, constant.CollectionMethod, filters, options.Find())
 	if err != nil {
-		return accounts, err
+		return methods, err
 	}
 
-	err = cursor.All(ctx, &accounts)
-	return accounts, err
+	err = cursor.All(ctx, &methods)
+	return methods, err
 }
 
-func UpdateBankAccount(id string, newAccount *domain.Accounts) (domain.Accounts, error) {
+func UpdateMethod(id string, newMethod *domain.Methods) (domain.Methods, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	filter := bson.M{"_id": tools.StringToObjectId(id)}
 
-	newAccount.UpdatedAt = time.Now()
+	newMethod.UpdatedAt = time.Now()
 
-	res, err := tools.UpdateOne(ctx, constant.CollectionBank, filter, newAccount)
+	res, err := tools.UpdateOne(ctx, constant.CollectionMethod, filter, newMethod)
 	if err != nil {
-		return domain.Accounts{}, err
+		return domain.Methods{}, err
 	}
 
 	if res.ModifiedCount > 0 {
-		return *newAccount, nil
+		return *newMethod, nil
 	}
 
-	return domain.Accounts{}, errors.New("conta bancária não encontrada")
+	return domain.Methods{}, errors.New("método não encontrado")
 }
 
-func DeleteBankAccount(id string) (bool, error) {
+func DeleteMethod(id string) (bool, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	filter := bson.M{"_id": tools.StringToObjectId(id)}
 
-	res, err := tools.DeleteOne(ctx, constant.CollectionBank, filter)
+	res, err := tools.DeleteOne(ctx, constant.CollectionMethod, filter)
 
 	if res.DeletedCount > 0 {
 		return true, err

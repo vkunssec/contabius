@@ -5,6 +5,7 @@ import (
 	"errors"
 	"time"
 
+	"github.com/vkunssec/contabius/pkg/constant"
 	"github.com/vkunssec/contabius/pkg/domain"
 	"github.com/vkunssec/contabius/tools"
 	"go.mongodb.org/mongo-driver/bson"
@@ -19,7 +20,7 @@ func CreateCategory(category *domain.Categories) (domain.Categories, error) {
 	category.CreatedAt = time.Now()
 	category.UpdatedAt = time.Now()
 
-	result, err := tools.InsertOne(ctx, Collection, category)
+	result, err := tools.InsertOne(ctx, constant.CollectionCategory, category)
 
 	category.Id = result.InsertedID.(primitive.ObjectID).Hex()
 
@@ -39,7 +40,7 @@ func GetCategory(ids []string) ([]domain.Categories, error) {
 		}
 	}
 
-	cursor, err := tools.Find(ctx, Collection, filters, options.Find())
+	cursor, err := tools.Find(ctx, constant.CollectionCategory, filters, options.Find())
 	if err != nil {
 		return categories, err
 	}
@@ -56,7 +57,7 @@ func UpdateCategory(id string, newCategory *domain.Categories) (domain.Categorie
 
 	newCategory.UpdatedAt = time.Now()
 
-	res, err := tools.UpdateOne(ctx, Collection, filter, newCategory)
+	res, err := tools.UpdateOne(ctx, constant.CollectionCategory, filter, newCategory)
 	if err != nil {
 		return domain.Categories{}, err
 	}
@@ -74,7 +75,7 @@ func DeleteCategory(id string) (bool, error) {
 
 	filter := bson.M{"_id": tools.StringToObjectId(id)}
 
-	res, err := tools.DeleteOne(ctx, Collection, filter)
+	res, err := tools.DeleteOne(ctx, constant.CollectionCategory, filter)
 
 	if res.DeletedCount > 0 {
 		return true, err
