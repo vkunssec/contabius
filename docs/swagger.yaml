@@ -325,6 +325,76 @@ paths:
       summary: Rota para criar uma categoria
       tags:
       - Category
+  /category/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Rota para deletar uma categoria
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID da categoria
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para deletar uma categoria
+      tags:
+      - Category
+  /category/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar uma categoria
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da categoria
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+      - description: ID da categoria
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar uma categoria
+      tags:
+      - Category
 schemes:
 - http
 - https
