@@ -14,13 +14,4 @@ func MethodsRoutes(app fiber.Router) {
 	app.Get(
 		"/methods",
 		handlers.GetMethods)
-	app.Post(
-		"/methods",
-		handlers.CreateMethod)
-	app.Put(
-		"/methods/update/:id",
-		handlers.UpdateMethod)
-	app.Delete(
-		"/methods/remove/:id",
-		handlers.DeleteMethod)
 }

@@ -2,13 +2,20 @@ package domain
 
 import (
 	"errors"
-	"time"
 )
 
 // Method é uma enumeração que representa o método de pagamento
 type Method string
 
+type MethodId int
+
 const (
+	MethodCreditId MethodId = iota
+	MethodDebitId
+	MethodPixId
+	MethodBoletoId
+	MethodCashId
+
 	MethodCredit Method = "credit"
 	MethodDebit  Method = "debit"
 	MethodPix    Method = "pix"
@@ -18,15 +25,68 @@ const (
 
 // Methods é uma estrutura que representa um método de pagamento
 type Methods struct {
-	Id        string    `json:"id,omitempty" bson:"_id,omitempty" example:"678079f6f5080a39a8eedc1e"`            // ID do método de pagamento
-	Method    Method    `json:"method" bson:"method" example:"credit"`                                           // Método de pagamento
-	CreatedAt time.Time `json:"created_at,omitempty" bson:"created_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de criação
-	UpdatedAt time.Time `json:"updated_at,omitempty" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de atualização
+	MethodId MethodId `json:"id" example:"1"`          // ID do método de pagamento
+	Method   Method   `json:"method" example:"credit"` // Método de pagamento
 }
 
+// Validate valida o método de pagamento
 func (m *Methods) Validate() error {
 	if m.Method == "" {
 		return errors.New("método não informado")
 	}
 	return nil
+}
+
+// AllMethods retorna todos os métodos de pagamento
+func AllMethods() []Methods {
+	return []Methods{
+		{Method: MethodCredit, MethodId: MethodCreditId},
+		{Method: MethodDebit, MethodId: MethodDebitId},
+		{Method: MethodPix, MethodId: MethodPixId},
+		{Method: MethodBoleto, MethodId: MethodBoletoId},
+		{Method: MethodCash, MethodId: MethodCashId},
+	}
+}
+
+// GetMethod retorna um método de pagamento
+func GetMethod(id MethodId) (Methods, error) {
+	var method Method
+	switch id {
+	case MethodCreditId:
+		method = MethodCredit
+	case MethodDebitId:
+		method = MethodDebit
+	case MethodPixId:
+		method = MethodPix
+	case MethodBoletoId:
+		method = MethodBoleto
+	case MethodCashId:
+		method = MethodCash
+	default:
+		return Methods{}, errors.New("método de pagamento inválido")
+	}
+
+	methodObj := Methods{
+		MethodId: id,
+		Method:   method,
+	}
+
+	if err := methodObj.Validate(); err != nil {
+		return Methods{}, err
+	}
+
+	return methodObj, nil
+}
+
+// GetMethods retorna todos os métodos de pagamento
+func GetMethods(ids []MethodId) ([]Methods, error) {
+	methods := []Methods{}
+	for _, id := range ids {
+		method, err := GetMethod(id)
+		if err != nil {
+			return []Methods{}, err
+		}
+		methods = append(methods, method)
+	}
+	return methods, nil
 }

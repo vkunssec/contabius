@@ -11,7 +11,7 @@ import (
 
 // GetByIdQueryParams é a estrutura que contém os parâmetros da requisição
 type GetByIdQueryParams struct {
-	Ids []string `query:"ids" example:"678079f6f5080a39a8eedc1e"` // Ids dos métodos a serem retornados
+	Ids []domain.MethodId `query:"ids" example:"0,1,2,3"` // Ids dos métodos a serem retornados
 }
 
 // GetMethodsResponse é a estrutura que contém a resposta da requisição

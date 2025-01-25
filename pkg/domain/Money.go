@@ -4,13 +4,21 @@ import "math"
 
 type Quantity int64
 
+type Currency string
+
+const (
+	CurrencyBRL Currency = "BRL"
+	CurrencyUSD Currency = "USD"
+	CurrencyEUR Currency = "EUR"
+)
+
 func (a Quantity) Int64() int64 {
 	return int64(a)
 }
 
 type Money struct {
 	Quantity Quantity `json:"quantity" bson:"quantity"`
-	Currency string   `json:"currency" bson:"currency"` // default code BRL
+	Currency Currency `json:"currency" bson:"currency"` // default code BRL
 }
 
 func (m Money) Float() float64 {
