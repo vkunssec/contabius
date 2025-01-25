@@ -16,7 +16,7 @@ func AccountRoutes(app *fiber.App) {
 		"/account",
 		handlers.GetBankAccount)
 	app.Post(
-		"/account/create",
+		"/account",
 		handlers.CreateAccount)
 	app.Put(
 		"/account/update/:id",
