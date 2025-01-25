@@ -46,6 +46,40 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
+  github_com_vkunssec_contabius_pkg_domain.Method:
+    enum:
+    - credit
+    - debit
+    - pix
+    - boleto
+    - cash
+    type: string
+    x-enum-varnames:
+    - MethodCredit
+    - MethodDebit
+    - MethodPix
+    - MethodBoleto
+    - MethodCash
+  github_com_vkunssec_contabius_pkg_domain.Methods:
+    properties:
+      created_at:
+        description: Data de criação
+        example: "2025-01-01T00:00:00Z"
+        type: string
+      id:
+        description: ID do método de pagamento
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+      method:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Method'
+        description: Método de pagamento
+        example: credit
+      updated_at:
+        description: Data de atualização
+        example: "2025-01-01T00:00:00Z"
+        type: string
+    type: object
   github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
     description: Estrutura padrão de resposta de erro de requisição
     properties:
@@ -95,6 +129,22 @@ definitions:
         description: Mensagem de sucesso ou erro
         example: Categorias retornadas com sucesso
         type: string
+      success:
+        description: Sucesso da operação
+        example: true
+        type: boolean
+    type: object
+  pkg_handlers_methods.GetMethodsResponse:
+    properties:
+      message:
+        description: Mensagem de sucesso ou erro
+        example: Métodos retornados com sucesso
+        type: string
+      methods:
+        description: Dados dos métodos
+        items:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        type: array
       success:
         description: Sucesso da operação
         example: true
@@ -395,6 +445,148 @@ paths:
       summary: Rota para atualizar uma categoria
       tags:
       - Category
+  /methods:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar todos os métodos
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Ids dos métodos a serem retornados
+        example:
+        - 678079f6f5080a39a8eedc1e
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg_handlers_methods.GetMethodsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar todos os métodos
+      tags:
+      - Methods
+    post:
+      consumes:
+      - application/json
+      description: Rota para criar um método
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do método
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para criar um método
+      tags:
+      - Methods
+  /methods/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Rota para deletar um método
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID do método
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para deletar um método
+      tags:
+      - Methods
+  /methods/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar um método
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do método
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+      - description: ID do método
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar um método
+      tags:
+      - Methods
 schemes:
 - http
 - https
