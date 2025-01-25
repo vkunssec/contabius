@@ -22,7 +22,7 @@ func CreateCategory(category *domain.Categories) (domain.Categories, error) {
 
 	result, err := tools.InsertOne(ctx, constant.CollectionCategory, category)
 
-	category.Id = result.InsertedID.(primitive.ObjectID).Hex()
+	category.Id = result.InsertedID.(primitive.ObjectID)
 
 	return *category, err
 }
