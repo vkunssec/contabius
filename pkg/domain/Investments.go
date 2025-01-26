@@ -125,54 +125,56 @@ func (i *Investments) GetRecurrenceDay() int {
 	return int(*i.RecurrenceDay)
 }
 
-var (
-	// investmentMap armazena o mapeamento de IDs para Investments
-	investmentMap = map[InvestmentId]InvestmentType{
-		InvestmentTypeCDIId:                InvestmentTypeCDI,
-		InvestmentTypeCDBId:                InvestmentTypeCDB,
-		InvestmentTypeLCAId:                InvestmentTypeLCA,
-		InvestmentTypeLCIId:                InvestmentTypeLCI,
-		InvestmentTypePoupancaId:           InvestmentTypePoupanca,
-		InvestmentTypeTesouroDiretoId:      InvestmentTypeTesouroDireto,
-		InvestmentTypeFundosInvestimentoId: InvestmentTypeFundosInvestimento,
-		InvestmentTypeAcoesId:              InvestmentTypeAcoes,
-		InvestmentTypeFIIsId:               InvestmentTypeFIIs,
-		InvestmentTypeCRIId:                InvestmentTypeCRI,
-		InvestmentTypeCRAId:                InvestmentTypeCRA,
-		InvestmentTypeDebenturesId:         InvestmentTypeDebentures,
-		InvestmentTypeBDRId:                InvestmentTypeBDR,
-		InvestmentTypeCOEId:                InvestmentTypeCOE,
-		InvestmentTypeOtherId:              InvestmentTypeOther,
-	}
-
-	// allInvestments armazena a lista completa de investimentos
-	allInvestments = func() []Investment {
-		investments := make([]Investment, 0, len(investmentMap))
-		for id, investmentType := range investmentMap {
-			investments = append(investments, Investment{Id: id, Investment: investmentType})
-		}
-		return investments
-	}()
-)
-
 // GetInvestment retorna um investimento
 func GetInvestment(id InvestmentId) (Investment, error) {
-	investmentType, exists := investmentMap[id]
-	if !exists {
-		return Investment{}, errors.New("investment not found")
+	var investment Investment
+	switch id {
+	case InvestmentTypeCDIId:
+		investment = Investment{Id: id, Investment: InvestmentTypeCDI}
+	case InvestmentTypeCDBId:
+		investment = Investment{Id: id, Investment: InvestmentTypeCDB}
+	case InvestmentTypeLCAId:
+		investment = Investment{Id: id, Investment: InvestmentTypeLCA}
+	case InvestmentTypeLCIId:
+		investment = Investment{Id: id, Investment: InvestmentTypeLCI}
+	case InvestmentTypePoupancaId:
+		investment = Investment{Id: id, Investment: InvestmentTypePoupanca}
+	case InvestmentTypeTesouroDiretoId:
+		investment = Investment{Id: id, Investment: InvestmentTypeTesouroDireto}
+	case InvestmentTypeFundosInvestimentoId:
+		investment = Investment{Id: id, Investment: InvestmentTypeFundosInvestimento}
+	case InvestmentTypeAcoesId:
+		investment = Investment{Id: id, Investment: InvestmentTypeAcoes}
+	case InvestmentTypeFIIsId:
+		investment = Investment{Id: id, Investment: InvestmentTypeFIIs}
+	case InvestmentTypeCRIId:
+		investment = Investment{Id: id, Investment: InvestmentTypeCRI}
+	case InvestmentTypeCRAId:
+		investment = Investment{Id: id, Investment: InvestmentTypeCRA}
+	case InvestmentTypeDebenturesId:
+		investment = Investment{Id: id, Investment: InvestmentTypeDebentures}
+	case InvestmentTypeBDRId:
+		investment = Investment{Id: id, Investment: InvestmentTypeBDR}
+	case InvestmentTypeCOEId:
+		investment = Investment{Id: id, Investment: InvestmentTypeCOE}
+	case InvestmentTypeOtherId:
+		investment = Investment{Id: id, Investment: InvestmentTypeOther}
 	}
 
-	investment := Investment{Id: id, Investment: investmentType}
-	return investment, investment.Validate()
+	if err := investment.Validate(); err != nil {
+		return Investment{}, err
+	}
+
+	return investment, nil
 }
 
-// GetInvestments retorna todos os investimentos solicitados
+// GetInvestments retorna todos os investimentos
 func GetInvestments(ids []InvestmentId) ([]Investment, error) {
-	investments := make([]Investment, 0, len(ids))
+	investments := []Investment{}
 	for _, id := range ids {
 		investment, err := GetInvestment(id)
 		if err != nil {
-			return nil, err
+			return []Investment{}, err
 		}
 		investments = append(investments, investment)
 	}
@@ -181,5 +183,21 @@ func GetInvestments(ids []InvestmentId) ([]Investment, error) {
 
 // AllInvestments retorna todos os investimentos
 func AllInvestments() []Investment {
-	return allInvestments
+	return []Investment{
+		{Id: InvestmentTypeCDIId, Investment: InvestmentTypeCDI},
+		{Id: InvestmentTypeCDBId, Investment: InvestmentTypeCDB},
+		{Id: InvestmentTypeLCAId, Investment: InvestmentTypeLCA},
+		{Id: InvestmentTypeLCIId, Investment: InvestmentTypeLCI},
+		{Id: InvestmentTypePoupancaId, Investment: InvestmentTypePoupanca},
+		{Id: InvestmentTypeTesouroDiretoId, Investment: InvestmentTypeTesouroDireto},
+		{Id: InvestmentTypeFundosInvestimentoId, Investment: InvestmentTypeFundosInvestimento},
+		{Id: InvestmentTypeAcoesId, Investment: InvestmentTypeAcoes},
+		{Id: InvestmentTypeFIIsId, Investment: InvestmentTypeFIIs},
+		{Id: InvestmentTypeCRIId, Investment: InvestmentTypeCRI},
+		{Id: InvestmentTypeCRAId, Investment: InvestmentTypeCRA},
+		{Id: InvestmentTypeDebenturesId, Investment: InvestmentTypeDebentures},
+		{Id: InvestmentTypeBDRId, Investment: InvestmentTypeBDR},
+		{Id: InvestmentTypeCOEId, Investment: InvestmentTypeCOE},
+		{Id: InvestmentTypeOtherId, Investment: InvestmentTypeOther},
+	}
 }

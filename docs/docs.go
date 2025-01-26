@@ -462,14 +462,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/investments/get_types": {
+        "/investments": {
             "get": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "Rota para retornar todos os tipos de investimentos",
+                "description": "Rota para retornar todos os investimentos",
                 "consumes": [
                     "application/json"
                 ],
@@ -479,7 +479,7 @@ const docTemplate = `{
                 "tags": [
                     "Investments"
                 ],
-                "summary": "Rota para retornar todos os tipos de investimentos",
+                "summary": "Rota para retornar todos os investimentos",
                 "parameters": [
                     {
                         "type": "string",
@@ -666,28 +666,18 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Investment": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "ID do investimento",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId"
-                        }
-                    ],
-                    "example": 1
-                },
-                "investment": {
-                    "description": "Tipo de investimento",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
-                        }
-                    ],
-                    "example": "cdi"
-                }
-            }
+        "github_com_vkunssec_contabius_pkg_domain.Currency": {
+            "type": "string",
+            "enum": [
+                "BRL",
+                "USD",
+                "EUR"
+            ],
+            "x-enum-varnames": [
+                "CurrencyBRL",
+                "CurrencyUSD",
+                "CurrencyEUR"
+            ]
         },
         "github_com_vkunssec_contabius_pkg_domain.InvestmentId": {
             "type": "integer",
@@ -780,6 +770,74 @@ const docTemplate = `{
                 "InvestmentTypeOther"
             ]
         },
+        "github_com_vkunssec_contabius_pkg_domain.Investments": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "Conta do usuário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                        }
+                    ]
+                },
+                "amount": {
+                    "description": "Valor do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "description": "Data de criação do investimento",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                },
+                "description": {
+                    "description": "Descrição do investimento",
+                    "type": "string",
+                    "example": "Investimento em CDB"
+                },
+                "investment": {
+                    "description": "Tipo de investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
+                        }
+                    ],
+                    "example": "cdi"
+                },
+                "investment_id": {
+                    "description": "ID do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId"
+                        }
+                    ],
+                    "example": 1
+                },
+                "recurrence": {
+                    "description": "Recurrence do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence"
+                        }
+                    ],
+                    "example": "monthly"
+                },
+                "recurrence_day": {
+                    "description": "Dia da recorrência",
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_at": {
+                    "description": "Data de atualização do investimento",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
         "github_com_vkunssec_contabius_pkg_domain.Method": {
             "type": "string",
             "enum": [
@@ -836,6 +894,42 @@ const docTemplate = `{
                     "example": "credit"
                 }
             }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Money": {
+            "type": "object",
+            "properties": {
+                "currency": {
+                    "description": "default code BRL",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Currency"
+                        }
+                    ],
+                    "example": "BRL"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 1000
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Recurrence": {
+            "type": "string",
+            "enum": [
+                "monthly",
+                "yearly",
+                "sporadic"
+            ],
+            "x-enum-comments": {
+                "RecurrenceMonthly": "Mensal",
+                "RecurrenceSporadic": "Esporádico",
+                "RecurrenceYearly": "Anual"
+            },
+            "x-enum-varnames": [
+                "RecurrenceMonthly",
+                "RecurrenceYearly",
+                "RecurrenceSporadic"
+            ]
         },
         "github_com_vkunssec_contabius_pkg_domain_common.BadRequest": {
             "description": "Estrutura padrão de resposta de erro de requisição",
@@ -917,7 +1011,7 @@ const docTemplate = `{
                     "description": "Dados dos investimentos",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment"
+                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
                     }
                 },
                 "message": {
