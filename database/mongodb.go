@@ -38,6 +38,7 @@ func MongoDBConnection(ctx context.Context) error {
 		cfg.Log = *slog.Default()
 	}
 
+	//nolint:deadcode
 	if cfg.DebugMode {
 		monitor := &event.CommandMonitor{
 			Started: func(_ context.Context, e *event.CommandStartedEvent) {

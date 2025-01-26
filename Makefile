@@ -21,11 +21,11 @@ test:
 docker:
 	$ docker compose up --force-recreate --build --remove-orphans
 
-docs-server:
-	$ cd docs && hugo server -p 8080
-
-docs-build:
-	$ cd docs && hugo --gc --minify --forceSyncStatic
-
 swagger:
 	$ swag init -g cmd/main.go --parseDependency --parseInternal
+
+seed:
+	$ go run cmd/seed/main.go
+
+lint:
+	$ golangci-lint run ./...
