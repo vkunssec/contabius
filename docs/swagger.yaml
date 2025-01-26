@@ -46,6 +46,142 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
+  github_com_vkunssec_contabius_pkg_domain.Currency:
+    enum:
+    - BRL
+    - USD
+    - EUR
+    type: string
+    x-enum-varnames:
+    - CurrencyBRL
+    - CurrencyUSD
+    - CurrencyEUR
+  github_com_vkunssec_contabius_pkg_domain.InvestmentId:
+    enum:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 10
+    - 11
+    - 12
+    - 13
+    - 14
+    type: integer
+    x-enum-varnames:
+    - InvestmentTypeCDIId
+    - InvestmentTypeCDBId
+    - InvestmentTypeLCAId
+    - InvestmentTypeLCIId
+    - InvestmentTypePoupancaId
+    - InvestmentTypeTesouroDiretoId
+    - InvestmentTypeFundosInvestimentoId
+    - InvestmentTypeAcoesId
+    - InvestmentTypeFIIsId
+    - InvestmentTypeCRIId
+    - InvestmentTypeCRAId
+    - InvestmentTypeDebenturesId
+    - InvestmentTypeBDRId
+    - InvestmentTypeCOEId
+    - InvestmentTypeOtherId
+  github_com_vkunssec_contabius_pkg_domain.InvestmentType:
+    enum:
+    - cdi
+    - cdb
+    - lca
+    - lci
+    - poupanca
+    - tesouro_direto
+    - fundos_investimento
+    - acoes
+    - fiis
+    - cri
+    - cra
+    - debentures
+    - bdr
+    - coe
+    - other
+    type: string
+    x-enum-comments:
+      InvestmentTypeAcoes: Ações
+      InvestmentTypeBDR: Depositário Brasileiro de Recebíveis
+      InvestmentTypeCDB: Certificado de Depósito Bancário
+      InvestmentTypeCDI: Certificado de Depósito Interbancário
+      InvestmentTypeCOE: Certificado de Operações Estruturadas
+      InvestmentTypeCRA: Certificado de Recebíveis do Agronegócio
+      InvestmentTypeCRI: Certificado de Recebíveis Imobiliários
+      InvestmentTypeDebentures: Debêntures
+      InvestmentTypeFIIs: Fundos de Investimento Imobiliário
+      InvestmentTypeFundosInvestimento: Fundos de Investimento
+      InvestmentTypeLCA: Letra de Crédito do Agronegócio
+      InvestmentTypeLCI: Letra de Crédito Imobiliário
+      InvestmentTypeOther: Outros
+      InvestmentTypePoupanca: Poupança
+      InvestmentTypeTesouroDireto: Tesouro Direto
+    x-enum-varnames:
+    - InvestmentTypeCDI
+    - InvestmentTypeCDB
+    - InvestmentTypeLCA
+    - InvestmentTypeLCI
+    - InvestmentTypePoupanca
+    - InvestmentTypeTesouroDireto
+    - InvestmentTypeFundosInvestimento
+    - InvestmentTypeAcoes
+    - InvestmentTypeFIIs
+    - InvestmentTypeCRI
+    - InvestmentTypeCRA
+    - InvestmentTypeDebentures
+    - InvestmentTypeBDR
+    - InvestmentTypeCOE
+    - InvestmentTypeOther
+  github_com_vkunssec_contabius_pkg_domain.Investments:
+    properties:
+      account:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+        description: Conta do usuário
+      amount:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        description: Valor do investimento
+      created_at:
+        description: Data de criação do investimento
+        example: "2025-01-01T00:00:00Z"
+        type: string
+      description:
+        description: Descrição do investimento
+        example: Investimento em CDB
+        type: string
+      investment:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
+        description: Tipo de investimento
+        example: cdi
+      investment_id:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId'
+        description: ID do investimento
+        example: 1
+      recurrence:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence'
+        description: Recurrence do investimento
+        example: monthly
+      recurrence_day:
+        description: Dia da recorrência
+        example: 1
+        type: integer
+      updated_at:
+        description: Data de atualização do investimento
+        example: "2025-01-01T00:00:00Z"
+        type: string
+    type: object
   github_com_vkunssec_contabius_pkg_domain.Method:
     enum:
     - credit
@@ -87,6 +223,31 @@ definitions:
         description: Método de pagamento
         example: credit
     type: object
+  github_com_vkunssec_contabius_pkg_domain.Money:
+    properties:
+      currency:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Currency'
+        description: default code BRL
+        example: BRL
+      quantity:
+        example: 1000
+        type: integer
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.Recurrence:
+    enum:
+    - monthly
+    - yearly
+    - sporadic
+    type: string
+    x-enum-comments:
+      RecurrenceMonthly: Mensal
+      RecurrenceSporadic: Esporádico
+      RecurrenceYearly: Anual
+    x-enum-varnames:
+    - RecurrenceMonthly
+    - RecurrenceYearly
+    - RecurrenceSporadic
   github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
     description: Estrutura padrão de resposta de erro de requisição
     properties:
@@ -135,6 +296,22 @@ definitions:
       message:
         description: Mensagem de sucesso ou erro
         example: Categorias retornadas com sucesso
+        type: string
+      success:
+        description: Sucesso da operação
+        example: true
+        type: boolean
+    type: object
+  pkg_handlers_investment.GetInvestmentsResponse:
+    properties:
+      investments:
+        description: Dados dos investimentos
+        items:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments'
+        type: array
+      message:
+        description: Mensagem de sucesso ou erro
+        example: Investimentos retornados com sucesso
         type: string
       success:
         description: Sucesso da operação
@@ -452,6 +629,61 @@ paths:
       summary: Rota para atualizar uma categoria
       tags:
       - Category
+  /investments:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar todos os investimentos
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Ids dos investimentos a serem retornados
+        example:
+        - 0
+        - 1
+        - 2
+        - 3
+        in: query
+        items:
+          enum:
+          - 0
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+          - 6
+          - 7
+          - 8
+          - 9
+          - 10
+          - 11
+          - 12
+          - 13
+          - 14
+          type: integer
+        name: ids
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pkg_handlers_investment.GetInvestmentsResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar todos os investimentos
+      tags:
+      - Investments
   /methods:
     get:
       consumes:

@@ -7,6 +7,7 @@ import (
 // Method é uma enumeração que representa o método de pagamento
 type Method string
 
+// MethodId é uma enumeração que representa o ID do método de pagamento
 type MethodId int
 
 const (

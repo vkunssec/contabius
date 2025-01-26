@@ -17,8 +17,8 @@ func (a Quantity) Int64() int64 {
 }
 
 type Money struct {
-	Quantity Quantity `json:"quantity" bson:"quantity"`
-	Currency Currency `json:"currency" bson:"currency"` // default code BRL
+	Quantity Quantity `json:"quantity" bson:"quantity" example:"1000"`
+	Currency Currency `json:"currency" bson:"currency" example:"BRL"` // default code BRL
 }
 
 func (m Money) Float() float64 {

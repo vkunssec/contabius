@@ -462,6 +462,82 @@ const docTemplate = `{
                 }
             }
         },
+        "/investments": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para retornar todos os investimentos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Investments"
+                ],
+                "summary": "Rota para retornar todos os investimentos",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "enum": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14
+                            ],
+                            "type": "integer"
+                        },
+                        "collectionFormat": "csv",
+                        "example": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ],
+                        "description": "Ids dos investimentos a serem retornados",
+                        "name": "ids",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pkg_handlers_investment.GetInvestmentsResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                        }
+                    }
+                }
+            }
+        },
         "/methods": {
             "get": {
                 "security": [
@@ -590,6 +666,178 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_vkunssec_contabius_pkg_domain.Currency": {
+            "type": "string",
+            "enum": [
+                "BRL",
+                "USD",
+                "EUR"
+            ],
+            "x-enum-varnames": [
+                "CurrencyBRL",
+                "CurrencyUSD",
+                "CurrencyEUR"
+            ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.InvestmentId": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12,
+                13,
+                14
+            ],
+            "x-enum-varnames": [
+                "InvestmentTypeCDIId",
+                "InvestmentTypeCDBId",
+                "InvestmentTypeLCAId",
+                "InvestmentTypeLCIId",
+                "InvestmentTypePoupancaId",
+                "InvestmentTypeTesouroDiretoId",
+                "InvestmentTypeFundosInvestimentoId",
+                "InvestmentTypeAcoesId",
+                "InvestmentTypeFIIsId",
+                "InvestmentTypeCRIId",
+                "InvestmentTypeCRAId",
+                "InvestmentTypeDebenturesId",
+                "InvestmentTypeBDRId",
+                "InvestmentTypeCOEId",
+                "InvestmentTypeOtherId"
+            ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.InvestmentType": {
+            "type": "string",
+            "enum": [
+                "cdi",
+                "cdb",
+                "lca",
+                "lci",
+                "poupanca",
+                "tesouro_direto",
+                "fundos_investimento",
+                "acoes",
+                "fiis",
+                "cri",
+                "cra",
+                "debentures",
+                "bdr",
+                "coe",
+                "other"
+            ],
+            "x-enum-comments": {
+                "InvestmentTypeAcoes": "Ações",
+                "InvestmentTypeBDR": "Depositário Brasileiro de Recebíveis",
+                "InvestmentTypeCDB": "Certificado de Depósito Bancário",
+                "InvestmentTypeCDI": "Certificado de Depósito Interbancário",
+                "InvestmentTypeCOE": "Certificado de Operações Estruturadas",
+                "InvestmentTypeCRA": "Certificado de Recebíveis do Agronegócio",
+                "InvestmentTypeCRI": "Certificado de Recebíveis Imobiliários",
+                "InvestmentTypeDebentures": "Debêntures",
+                "InvestmentTypeFIIs": "Fundos de Investimento Imobiliário",
+                "InvestmentTypeFundosInvestimento": "Fundos de Investimento",
+                "InvestmentTypeLCA": "Letra de Crédito do Agronegócio",
+                "InvestmentTypeLCI": "Letra de Crédito Imobiliário",
+                "InvestmentTypeOther": "Outros",
+                "InvestmentTypePoupanca": "Poupança",
+                "InvestmentTypeTesouroDireto": "Tesouro Direto"
+            },
+            "x-enum-varnames": [
+                "InvestmentTypeCDI",
+                "InvestmentTypeCDB",
+                "InvestmentTypeLCA",
+                "InvestmentTypeLCI",
+                "InvestmentTypePoupanca",
+                "InvestmentTypeTesouroDireto",
+                "InvestmentTypeFundosInvestimento",
+                "InvestmentTypeAcoes",
+                "InvestmentTypeFIIs",
+                "InvestmentTypeCRI",
+                "InvestmentTypeCRA",
+                "InvestmentTypeDebentures",
+                "InvestmentTypeBDR",
+                "InvestmentTypeCOE",
+                "InvestmentTypeOther"
+            ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Investments": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "Conta do usuário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                        }
+                    ]
+                },
+                "amount": {
+                    "description": "Valor do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "description": "Data de criação do investimento",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                },
+                "description": {
+                    "description": "Descrição do investimento",
+                    "type": "string",
+                    "example": "Investimento em CDB"
+                },
+                "investment": {
+                    "description": "Tipo de investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
+                        }
+                    ],
+                    "example": "cdi"
+                },
+                "investment_id": {
+                    "description": "ID do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId"
+                        }
+                    ],
+                    "example": 1
+                },
+                "recurrence": {
+                    "description": "Recurrence do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence"
+                        }
+                    ],
+                    "example": "monthly"
+                },
+                "recurrence_day": {
+                    "description": "Dia da recorrência",
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_at": {
+                    "description": "Data de atualização do investimento",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
         "github_com_vkunssec_contabius_pkg_domain.Method": {
             "type": "string",
             "enum": [
@@ -646,6 +894,42 @@ const docTemplate = `{
                     "example": "credit"
                 }
             }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Money": {
+            "type": "object",
+            "properties": {
+                "currency": {
+                    "description": "default code BRL",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Currency"
+                        }
+                    ],
+                    "example": "BRL"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 1000
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Recurrence": {
+            "type": "string",
+            "enum": [
+                "monthly",
+                "yearly",
+                "sporadic"
+            ],
+            "x-enum-comments": {
+                "RecurrenceMonthly": "Mensal",
+                "RecurrenceSporadic": "Esporádico",
+                "RecurrenceYearly": "Anual"
+            },
+            "x-enum-varnames": [
+                "RecurrenceMonthly",
+                "RecurrenceYearly",
+                "RecurrenceSporadic"
+            ]
         },
         "github_com_vkunssec_contabius_pkg_domain_common.BadRequest": {
             "description": "Estrutura padrão de resposta de erro de requisição",
@@ -712,6 +996,28 @@ const docTemplate = `{
                     "description": "Mensagem de sucesso ou erro",
                     "type": "string",
                     "example": "Categorias retornadas com sucesso"
+                },
+                "success": {
+                    "description": "Sucesso da operação",
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "pkg_handlers_investment.GetInvestmentsResponse": {
+            "type": "object",
+            "properties": {
+                "investments": {
+                    "description": "Dados dos investimentos",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                    }
+                },
+                "message": {
+                    "description": "Mensagem de sucesso ou erro",
+                    "type": "string",
+                    "example": "Investimentos retornados com sucesso"
                 },
                 "success": {
                     "description": "Sucesso da operação",

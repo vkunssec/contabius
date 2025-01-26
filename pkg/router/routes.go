@@ -9,6 +9,7 @@ func Routes(app *fiber.App) {
 	AccountRoutes(app)
 	CategoryRoutes(app)
 	MethodsRoutes(app)
+	InvestmentsRoutes(app)
 
 	// teste
 	app.Post("/wallet", handlers.CreateWallet)
