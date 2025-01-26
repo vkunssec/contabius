@@ -38,56 +38,51 @@ func (m *Methods) Validate() error {
 	return nil
 }
 
-// AllMethods retorna todos os métodos de pagamento
-func AllMethods() []Methods {
-	return []Methods{
-		{Method: MethodCredit, MethodId: MethodCreditId},
-		{Method: MethodDebit, MethodId: MethodDebitId},
-		{Method: MethodPix, MethodId: MethodPixId},
-		{Method: MethodBoleto, MethodId: MethodBoletoId},
-		{Method: MethodCash, MethodId: MethodCashId},
+var (
+	// methodMap armazena o mapeamento de IDs para Methods
+	methodMap = map[MethodId]Method{
+		MethodCreditId: MethodCredit,
+		MethodDebitId:  MethodDebit,
+		MethodPixId:    MethodPix,
+		MethodBoletoId: MethodBoleto,
+		MethodCashId:   MethodCash,
 	}
-}
+
+	// allMethods armazena a lista completa de métodos de pagamento
+	allMethods = func() []Methods {
+		methods := make([]Methods, 0, len(methodMap))
+		for id, method := range methodMap {
+			methods = append(methods, Methods{MethodId: id, Method: method})
+		}
+		return methods
+	}()
+)
 
 // GetMethod retorna um método de pagamento
 func GetMethod(id MethodId) (Methods, error) {
-	var method Method
-	switch id {
-	case MethodCreditId:
-		method = MethodCredit
-	case MethodDebitId:
-		method = MethodDebit
-	case MethodPixId:
-		method = MethodPix
-	case MethodBoletoId:
-		method = MethodBoleto
-	case MethodCashId:
-		method = MethodCash
-	default:
+	method, exists := methodMap[id]
+	if !exists {
 		return Methods{}, errors.New("método de pagamento inválido")
 	}
 
-	methodObj := Methods{
-		MethodId: id,
-		Method:   method,
-	}
-
-	if err := methodObj.Validate(); err != nil {
-		return Methods{}, err
-	}
-
-	return methodObj, nil
+	methodObj := Methods{MethodId: id, Method: method}
+	return methodObj, methodObj.Validate()
 }
 
-// GetMethods retorna todos os métodos de pagamento
+// GetMethods retorna todos os métodos de pagamento solicitados
 func GetMethods(ids []MethodId) ([]Methods, error) {
-	methods := []Methods{}
+	methods := make([]Methods, 0, len(ids))
 	for _, id := range ids {
 		method, err := GetMethod(id)
 		if err != nil {
-			return []Methods{}, err
+			return nil, err
 		}
 		methods = append(methods, method)
 	}
 	return methods, nil
+}
+
+// AllMethods retorna todos os métodos de pagamento
+func AllMethods() []Methods {
+	return allMethods
 }
