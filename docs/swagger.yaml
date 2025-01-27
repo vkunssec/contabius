@@ -56,22 +56,8 @@ definitions:
     - CurrencyBRL
     - CurrencyUSD
     - CurrencyEUR
-  github_com_vkunssec_contabius_pkg_domain.Investment:
-    properties:
-      id:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId'
-        description: ID do investimento
-        example: 1
-      investment:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
-        description: Tipo de investimento
-        example: cdi
-    type: object
   github_com_vkunssec_contabius_pkg_domain.InvestmentId:
     enum:
-    - 0
     - 1
     - 2
     - 3
@@ -86,6 +72,7 @@ definitions:
     - 12
     - 13
     - 14
+    - 15
     type: integer
     x-enum-varnames:
     - InvestmentTypeCDIId
@@ -103,7 +90,7 @@ definitions:
     - InvestmentTypeBDRId
     - InvestmentTypeCOEId
     - InvestmentTypeOtherId
-  github_com_vkunssec_contabius_pkg_domain.InvestmentType:
+  github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral:
     enum:
     - cdi
     - cdb
@@ -153,6 +140,19 @@ definitions:
     - InvestmentTypeBDR
     - InvestmentTypeCOE
     - InvestmentTypeOther
+  github_com_vkunssec_contabius_pkg_domain.InvestmentType:
+    properties:
+      id:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId'
+        description: ID do investimento
+        example: 1
+      investment:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral'
+        description: Tipo de investimento
+        example: cdi
+    type: object
   github_com_vkunssec_contabius_pkg_domain.Investments:
     properties:
       account:
@@ -175,9 +175,9 @@ definitions:
         description: ID do investimento
         example: 678079f6f5080a39a8eedc1e
         type: string
-      investment:
+      investment_type:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment'
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
         description: Tipo de investimento
       recurrence:
         allOf:
@@ -326,7 +326,7 @@ definitions:
       types:
         description: Dados dos investimentos
         items:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment'
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
         type: array
     type: object
   pkg_handlers_methods.GetMethodsResponse:
@@ -453,6 +453,10 @@ paths:
             $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
         "400":
           description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "404":
+          description: Not Found
           schema:
             $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
       security:
@@ -597,6 +601,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar uma categoria
@@ -699,7 +707,6 @@ paths:
         in: query
         items:
           enum:
-          - 0
           - 1
           - 2
           - 3
@@ -714,6 +721,7 @@ paths:
           - 12
           - 13
           - 14
+          - 15
           type: integer
         name: ids
         type: array
@@ -794,6 +802,10 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar um investimento
@@ -820,7 +832,6 @@ paths:
         in: query
         items:
           enum:
-          - 0
           - 1
           - 2
           - 3
@@ -835,6 +846,7 @@ paths:
           - 12
           - 13
           - 14
+          - 15
           type: integer
         name: ids
         type: array

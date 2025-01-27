@@ -176,6 +176,12 @@
                         "schema": {
                             "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
                     }
                 }
             }
@@ -397,6 +403,12 @@
                         "schema": {
                             "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
                     }
                 }
             }
@@ -549,7 +561,6 @@
                         "type": "array",
                         "items": {
                             "enum": [
-                                0,
                                 1,
                                 2,
                                 3,
@@ -563,7 +574,8 @@
                                 11,
                                 12,
                                 13,
-                                14
+                                14,
+                                15
                             ],
                             "type": "integer"
                         },
@@ -694,6 +706,12 @@
                         "schema": {
                             "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
                         }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
                     }
                 }
             }
@@ -728,7 +746,6 @@
                         "type": "array",
                         "items": {
                             "enum": [
-                                0,
                                 1,
                                 2,
                                 3,
@@ -742,7 +759,8 @@
                                 11,
                                 12,
                                 13,
-                                14
+                                14,
+                                15
                             ],
                             "type": "integer"
                         },
@@ -915,33 +933,9 @@
                 "CurrencyEUR"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.Investment": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "ID do investimento",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId"
-                        }
-                    ],
-                    "example": 1
-                },
-                "investment": {
-                    "description": "Tipo de investimento",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
-                        }
-                    ],
-                    "example": "cdi"
-                }
-            }
-        },
         "github_com_vkunssec_contabius_pkg_domain.InvestmentId": {
             "type": "integer",
             "enum": [
-                0,
                 1,
                 2,
                 3,
@@ -955,7 +949,8 @@
                 11,
                 12,
                 13,
-                14
+                14,
+                15
             ],
             "x-enum-varnames": [
                 "InvestmentTypeCDIId",
@@ -975,7 +970,7 @@
                 "InvestmentTypeOtherId"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.InvestmentType": {
+        "github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral": {
             "type": "string",
             "enum": [
                 "cdi",
@@ -1029,6 +1024,29 @@
                 "InvestmentTypeOther"
             ]
         },
+        "github_com_vkunssec_contabius_pkg_domain.InvestmentType": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "ID do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId"
+                        }
+                    ],
+                    "example": 1
+                },
+                "investment": {
+                    "description": "Tipo de investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral"
+                        }
+                    ],
+                    "example": "cdi"
+                }
+            }
+        },
         "github_com_vkunssec_contabius_pkg_domain.Investments": {
             "type": "object",
             "properties": {
@@ -1063,11 +1081,11 @@
                     "type": "string",
                     "example": "678079f6f5080a39a8eedc1e"
                 },
-                "investment": {
+                "investment_type": {
                     "description": "Tipo de investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
                         }
                     ]
                 },
@@ -1275,7 +1293,7 @@
                     "description": "Dados dos investimentos",
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment"
+                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
                     }
                 }
             }
