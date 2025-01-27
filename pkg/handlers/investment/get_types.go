@@ -16,12 +16,12 @@ type GetByIdQueryParams struct {
 
 // GetMethodsResponse é a estrutura que contém a resposta da requisição
 type GetInvestmentsResponse struct {
-	Success bool                `json:"success" example:"true"`                                 // Sucesso da operação
-	Message string              `json:"message" example:"Investimentos retornados com sucesso"` // Mensagem de sucesso ou erro
-	Types   []domain.Investment `json:"investments"`                                            // Dados dos investimentos
+	Success bool                    `json:"success" example:"true"`                                 // Sucesso da operação
+	Message string                  `json:"message" example:"Investimentos retornados com sucesso"` // Mensagem de sucesso ou erro
+	Types   []domain.InvestmentType `json:"types"`                                                  // Dados dos investimentos
 }
 
-// GetInvestments é uma função que retorna todos os tipos de investimentos
+// GetTypesInvestments é uma função que retorna todos os tipos de investimentos
 // @Summary Rota para retornar todos os tipos de investimentos
 // @Description Rota para retornar todos os tipos de investimentos
 // @Tags Investments
@@ -33,7 +33,7 @@ type GetInvestmentsResponse struct {
 // @Success 200 {object} GetInvestmentsResponse
 // @Failure 500 {object} common.InternalServerError
 // @Router /investments/get_types [get]
-func GetInvestments(ctx *fiber.Ctx) error {
+func GetTypesInvestments(ctx *fiber.Ctx) error {
 	queries := new(GetByIdQueryParams)
 	if err := ctx.QueryParser(queries); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{

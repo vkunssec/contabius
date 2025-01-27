@@ -462,6 +462,244 @@ const docTemplate = `{
                 }
             }
         },
+        "/investment/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para atualizar um investimento",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Investments"
+                ],
+                "summary": "Rota para atualizar um investimento",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do investimento",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID do investimento",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/investments": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para retornar os investimentos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Investments"
+                ],
+                "summary": "Rota para retornar os investimentos",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "enum": [
+                                0,
+                                1,
+                                2,
+                                3,
+                                4,
+                                5,
+                                6,
+                                7,
+                                8,
+                                9,
+                                10,
+                                11,
+                                12,
+                                13,
+                                14
+                            ],
+                            "type": "integer"
+                        },
+                        "collectionFormat": "csv",
+                        "example": [
+                            0,
+                            1,
+                            2,
+                            3
+                        ],
+                        "description": "Ids dos investimentos a serem retornados",
+                        "name": "ids",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para criar um investimento",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Investments"
+                ],
+                "summary": "Rota para criar um investimento",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do investimento",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/investments/delete/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para deletar um investimento",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Investments"
+                ],
+                "summary": "Rota para deletar um investimento",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID do investimento",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
         "/investments/get_types": {
             "get": {
                 "security": [
@@ -666,6 +904,19 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_vkunssec_contabius_pkg_domain.Currency": {
+            "type": "string",
+            "enum": [
+                "BRL",
+                "USD",
+                "EUR"
+            ],
+            "x-enum-varnames": [
+                "CurrencyBRL",
+                "CurrencyUSD",
+                "CurrencyEUR"
+            ]
+        },
         "github_com_vkunssec_contabius_pkg_domain.Investment": {
             "type": "object",
             "properties": {
@@ -780,6 +1031,69 @@ const docTemplate = `{
                 "InvestmentTypeOther"
             ]
         },
+        "github_com_vkunssec_contabius_pkg_domain.Investments": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "Conta do usuário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                        }
+                    ]
+                },
+                "amount": {
+                    "description": "Valor do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "description": "Data de criação do investimento",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                },
+                "description": {
+                    "description": "Descrição do investimento",
+                    "type": "string",
+                    "example": "Investimento em CDB"
+                },
+                "id": {
+                    "description": "ID do investimento",
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                },
+                "investment": {
+                    "description": "Tipo de investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment"
+                        }
+                    ]
+                },
+                "recurrence": {
+                    "description": "Recurrence do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence"
+                        }
+                    ],
+                    "example": "monthly"
+                },
+                "recurrence_day": {
+                    "description": "Dia da recorrência",
+                    "type": "integer",
+                    "example": 1
+                },
+                "updated_at": {
+                    "description": "Data de atualização do investimento",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
         "github_com_vkunssec_contabius_pkg_domain.Method": {
             "type": "string",
             "enum": [
@@ -836,6 +1150,42 @@ const docTemplate = `{
                     "example": "credit"
                 }
             }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Money": {
+            "type": "object",
+            "properties": {
+                "currency": {
+                    "description": "default code BRL",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Currency"
+                        }
+                    ],
+                    "example": "BRL"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 1000
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Recurrence": {
+            "type": "string",
+            "enum": [
+                "monthly",
+                "yearly",
+                "sporadic"
+            ],
+            "x-enum-comments": {
+                "RecurrenceMonthly": "Mensal",
+                "RecurrenceSporadic": "Esporádico",
+                "RecurrenceYearly": "Anual"
+            },
+            "x-enum-varnames": [
+                "RecurrenceMonthly",
+                "RecurrenceYearly",
+                "RecurrenceSporadic"
+            ]
         },
         "github_com_vkunssec_contabius_pkg_domain_common.BadRequest": {
             "description": "Estrutura padrão de resposta de erro de requisição",
@@ -913,13 +1263,6 @@ const docTemplate = `{
         "pkg_handlers_investment.GetInvestmentsResponse": {
             "type": "object",
             "properties": {
-                "investments": {
-                    "description": "Dados dos investimentos",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment"
-                    }
-                },
                 "message": {
                     "description": "Mensagem de sucesso ou erro",
                     "type": "string",
@@ -929,6 +1272,13 @@ const docTemplate = `{
                     "description": "Sucesso da operação",
                     "type": "boolean",
                     "example": true
+                },
+                "types": {
+                    "description": "Dados dos investimentos",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investment"
+                    }
                 }
             }
         },

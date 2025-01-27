@@ -57,7 +57,7 @@ func UpdateCategory(id string, newCategory *domain.Categories) (domain.Categorie
 
 	newCategory.UpdatedAt = time.Now()
 
-	res, err := tools.UpdateOne(ctx, constant.CollectionCategory, filter, newCategory)
+	res, err := tools.UpdateOne(ctx, constant.CollectionCategory, filter, bson.M{"$set": newCategory})
 	if err != nil {
 		return domain.Categories{}, err
 	}

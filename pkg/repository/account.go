@@ -24,7 +24,7 @@ func CreateBankAccount(account *domain.Accounts) (domain.Accounts, error) {
 
 	result, err := tools.InsertOne(ctx, constant.CollectionBank, account)
 
-	account.Id = result.InsertedID.(primitive.ObjectID).Hex()
+	account.Id = result.InsertedID.(primitive.ObjectID)
 
 	return *account, err
 }
@@ -59,7 +59,7 @@ func UpdateBankAccount(id string, newAccount *domain.Accounts) (domain.Accounts,
 
 	newAccount.UpdatedAt = time.Now()
 
-	res, err := tools.UpdateOne(ctx, constant.CollectionBank, filter, newAccount)
+	res, err := tools.UpdateOne(ctx, constant.CollectionBank, filter, bson.M{"$set": newAccount})
 	if err != nil {
 		return domain.Accounts{}, err
 	}

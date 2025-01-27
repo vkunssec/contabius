@@ -6,7 +6,6 @@ import (
 	"github.com/vkunssec/contabius/database"
 	"github.com/vkunssec/contabius/utils/logger"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -34,10 +33,10 @@ func InsertOne(ctx context.Context, collection string, values interface{}) (*mon
 		InsertOne(ctx, values)
 }
 
-func UpdateOne(ctx context.Context, collection string, filter primitive.M, values interface{}) (*mongo.UpdateResult, error) {
+func UpdateOne(ctx context.Context, collection string, filter primitive.M, update primitive.M) (*mongo.UpdateResult, error) {
 	return database.MongoDB.
 		Collection(collection).
-		UpdateOne(ctx, filter, bson.M{"$set": values})
+		UpdateOne(ctx, filter, update)
 }
 
 func Find(ctx context.Context, collection string, filters primitive.M, options *options.FindOptions) (*mongo.Cursor, error) {

@@ -24,6 +24,7 @@ type deleteParams struct {
 // @Param id path string true "ID da categoria"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
+// @Failure 404 {object} common.BadRequest
 // @Router /category/delete/{id} [delete]
 func DeleteCategory(ctx *fiber.Ctx) error {
 	params := new(deleteParams)
@@ -38,6 +39,13 @@ func DeleteCategory(ctx *fiber.Ctx) error {
 	if err != nil {
 		return ctx.Status(fiber.StatusBadGateway).JSON(common.BadRequest{
 			Message: err.Error(),
+			Success: false,
+		})
+	}
+
+	if !ok {
+		return ctx.Status(fiber.StatusNotFound).JSON(common.BadRequest{
+			Message: "Categoria não encontrada",
 			Success: false,
 		})
 	}

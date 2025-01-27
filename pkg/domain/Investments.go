@@ -8,13 +8,13 @@ import (
 )
 
 // InvestmentType é uma enumeração que representa o tipo de investimento
-type InvestmentType string
+type InvestmentLiteral string
 
 // InvestmentId é uma enumeração que representa o ID do investimento
 type InvestmentId int
 
 const (
-	InvestmentTypeCDIId InvestmentId = iota
+	InvestmentTypeCDIId InvestmentId = iota + 1
 	InvestmentTypeCDBId
 	InvestmentTypeLCAId
 	InvestmentTypeLCIId
@@ -30,21 +30,21 @@ const (
 	InvestmentTypeCOEId
 	InvestmentTypeOtherId
 
-	InvestmentTypeCDI                InvestmentType = "cdi"                 // Certificado de Depósito Interbancário
-	InvestmentTypeCDB                InvestmentType = "cdb"                 // Certificado de Depósito Bancário
-	InvestmentTypeLCA                InvestmentType = "lca"                 // Letra de Crédito do Agronegócio
-	InvestmentTypeLCI                InvestmentType = "lci"                 // Letra de Crédito Imobiliário
-	InvestmentTypePoupanca           InvestmentType = "poupanca"            // Poupança
-	InvestmentTypeTesouroDireto      InvestmentType = "tesouro_direto"      // Tesouro Direto
-	InvestmentTypeFundosInvestimento InvestmentType = "fundos_investimento" // Fundos de Investimento
-	InvestmentTypeAcoes              InvestmentType = "acoes"               // Ações
-	InvestmentTypeFIIs               InvestmentType = "fiis"                // Fundos de Investimento Imobiliário
-	InvestmentTypeCRI                InvestmentType = "cri"                 // Certificado de Recebíveis Imobiliários
-	InvestmentTypeCRA                InvestmentType = "cra"                 // Certificado de Recebíveis do Agronegócio
-	InvestmentTypeDebentures         InvestmentType = "debentures"          // Debêntures
-	InvestmentTypeBDR                InvestmentType = "bdr"                 // Depositário Brasileiro de Recebíveis
-	InvestmentTypeCOE                InvestmentType = "coe"                 // Certificado de Operações Estruturadas
-	InvestmentTypeOther              InvestmentType = "other"               // Outros
+	InvestmentTypeCDI                InvestmentLiteral = "cdi"                 // Certificado de Depósito Interbancário
+	InvestmentTypeCDB                InvestmentLiteral = "cdb"                 // Certificado de Depósito Bancário
+	InvestmentTypeLCA                InvestmentLiteral = "lca"                 // Letra de Crédito do Agronegócio
+	InvestmentTypeLCI                InvestmentLiteral = "lci"                 // Letra de Crédito Imobiliário
+	InvestmentTypePoupanca           InvestmentLiteral = "poupanca"            // Poupança
+	InvestmentTypeTesouroDireto      InvestmentLiteral = "tesouro_direto"      // Tesouro Direto
+	InvestmentTypeFundosInvestimento InvestmentLiteral = "fundos_investimento" // Fundos de Investimento
+	InvestmentTypeAcoes              InvestmentLiteral = "acoes"               // Ações
+	InvestmentTypeFIIs               InvestmentLiteral = "fiis"                // Fundos de Investimento Imobiliário
+	InvestmentTypeCRI                InvestmentLiteral = "cri"                 // Certificado de Recebíveis Imobiliários
+	InvestmentTypeCRA                InvestmentLiteral = "cra"                 // Certificado de Recebíveis do Agronegócio
+	InvestmentTypeDebentures         InvestmentLiteral = "debentures"          // Debêntures
+	InvestmentTypeBDR                InvestmentLiteral = "bdr"                 // Depositário Brasileiro de Recebíveis
+	InvestmentTypeCOE                InvestmentLiteral = "coe"                 // Certificado de Operações Estruturadas
+	InvestmentTypeOther              InvestmentLiteral = "other"               // Outros
 )
 
 // Recurrence é uma enumeração que representa a recorrência do investimento
@@ -59,26 +59,26 @@ const (
 // RecurrenceDay é uma enumeração que representa o dia da recorrência
 type RecurrenceDay int
 
-type Investment struct {
-	Id         InvestmentId   `json:"id" bson:"id" example:"1"`                   // ID do investimento
-	Investment InvestmentType `json:"investment" bson:"investment" example:"cdi"` // Tipo de investimento
+type InvestmentType struct {
+	Id         InvestmentId      `json:"id,omitempty" bson:"_id,omitempty" example:"1"`                  // ID do investimento
+	Investment InvestmentLiteral `json:"investment,omitempty" bson:"investment,omitempty" example:"cdi"` // Tipo de investimento
 }
 
 // Investments são os investimentos que o usuário possui
 type Investments struct {
-	Id            primitive.ObjectID `json:"id" bson:"_id,omitempty" example:"678079f6f5080a39a8eedc1e"`            // ID do investimento
-	Investment    Investment         `json:"investment" bson:"investment"`                                          // Tipo de investimento
-	Amount        Money              `json:"amount" bson:"amount"`                                                  // Valor do investimento
-	Account       Accounts           `json:"account" bson:"account"`                                                // Conta do usuário
-	Recurrence    Recurrence         `json:"recurrence" bson:"recurrence" example:"monthly"`                        // Recurrence do investimento
-	RecurrenceDay *RecurrenceDay     `json:"recurrence_day" bson:"recurrence_day" example:"1"`                      // Dia da recorrência
-	Description   *string            `json:"description" bson:"description" example:"Investimento em CDB"`          // Descrição do investimento
-	CreatedAt     time.Time          `json:"created_at" bson:"created_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de criação do investimento
-	UpdatedAt     time.Time          `json:"updated_at" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de atualização do investimento
+	Id            primitive.ObjectID `json:"id,omitempty" bson:"_id,omitempty" example:"678079f6f5080a39a8eedc1e"`             // ID do investimento
+	Investment    InvestmentType     `json:"investment_type,omitempty" bson:"investment_type,omitempty"`                       // Tipo de investimento
+	Amount        Money              `json:"amount,omitempty" bson:"amount,omitempty"`                                         // Valor do investimento
+	Account       Accounts           `json:"account,omitempty" bson:"account,omitempty"`                                       // Conta do usuário
+	Recurrence    Recurrence         `json:"recurrence,omitempty" bson:"recurrence,omitempty" example:"monthly"`               // Recurrence do investimento
+	RecurrenceDay *RecurrenceDay     `json:"recurrence_day,omitempty" bson:"recurrence_day,omitempty" example:"1"`             // Dia da recorrência
+	Description   *string            `json:"description,omitempty" bson:"description,omitempty" example:"Investimento em CDB"` // Descrição do investimento
+	CreatedAt     time.Time          `json:"created_at,omitempty" bson:"created_at,omitempty" example:"2025-01-01T00:00:00Z"`  // Data de criação do investimento
+	UpdatedAt     time.Time          `json:"updated_at,omitempty" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"`  // Data de atualização do investimento
 }
 
 // Validate valida os campos do investimento
-func (i *Investment) Validate() error {
+func (i *InvestmentType) Validate() error {
 	if i.Investment == "" {
 		return errors.New("investment is required")
 	}
@@ -110,7 +110,7 @@ func (i *Investments) Validate() error {
 		return errors.New("amount must be greater than 0")
 	}
 
-	if i.Account.Id == "" {
+	if i.Account.Id == primitive.NilObjectID {
 		return errors.New("account is required")
 	}
 
@@ -127,7 +127,7 @@ func (i *Investments) GetRecurrenceDay() int {
 
 var (
 	// investmentMap armazena o mapeamento de IDs para Investments
-	investmentMap = map[InvestmentId]InvestmentType{
+	investmentMap = map[InvestmentId]InvestmentLiteral{
 		InvestmentTypeCDIId:                InvestmentTypeCDI,
 		InvestmentTypeCDBId:                InvestmentTypeCDB,
 		InvestmentTypeLCAId:                InvestmentTypeLCA,
@@ -146,29 +146,29 @@ var (
 	}
 
 	// allInvestments armazena a lista completa de investimentos
-	allInvestments = func() []Investment {
-		investments := make([]Investment, 0, len(investmentMap))
+	allInvestments = func() []InvestmentType {
+		investments := make([]InvestmentType, 0, len(investmentMap))
 		for id, investmentType := range investmentMap {
-			investments = append(investments, Investment{Id: id, Investment: investmentType})
+			investments = append(investments, InvestmentType{Id: id, Investment: investmentType})
 		}
 		return investments
 	}()
 )
 
 // GetInvestment retorna um investimento
-func GetInvestment(id InvestmentId) (Investment, error) {
+func GetInvestment(id InvestmentId) (InvestmentType, error) {
 	investmentType, exists := investmentMap[id]
 	if !exists {
-		return Investment{}, errors.New("investment not found")
+		return InvestmentType{}, errors.New("investment not found")
 	}
 
-	investment := Investment{Id: id, Investment: investmentType}
+	investment := InvestmentType{Id: id, Investment: investmentType}
 	return investment, investment.Validate()
 }
 
 // GetInvestments retorna todos os investimentos solicitados
-func GetInvestments(ids []InvestmentId) ([]Investment, error) {
-	investments := make([]Investment, 0, len(ids))
+func GetInvestments(ids []InvestmentId) ([]InvestmentType, error) {
+	investments := make([]InvestmentType, 0, len(ids))
 	for _, id := range ids {
 		investment, err := GetInvestment(id)
 		if err != nil {
@@ -180,6 +180,6 @@ func GetInvestments(ids []InvestmentId) ([]Investment, error) {
 }
 
 // AllInvestments retorna todos os investimentos
-func AllInvestments() []Investment {
+func AllInvestments() []InvestmentType {
 	return allInvestments
 }
