@@ -25,7 +25,7 @@ type deleteParams struct {
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Failure 404 {object} common.BadRequest
-// @Router /category/delete/{id} [delete]
+// @Router /category/remove/{id} [delete]
 func DeleteCategory(ctx *fiber.Ctx) error {
 	params := new(deleteParams)
 	if err := ctx.ParamsParser(params); err != nil {

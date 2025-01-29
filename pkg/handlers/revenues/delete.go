@@ -10,23 +10,23 @@ import (
 
 // deleteParams é a estrutura que contém os parâmetros da requisição
 type deleteParams struct {
-	Id string `params:"id" example:"678079f6f5080a39a8eedc1e"` // ID da conta bancária a ser deletada
+	Id string `params:"id" example:"678079f6f5080a39a8eedc1e"` // ID da receita a ser deletada
 }
 
-// DeleteInvestment é uma função que deleta um investimento
-// @Summary Rota para deletar um investimento
-// @Description Rota para deletar um investimento
-// @Tags Investments
+// DeleteRevenues é uma função que deleta uma receita
+// @Summary Rota para deletar uma receita
+// @Description Rota para deletar uma receita
+// @Tags Revenues
 // @Accept json
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param id path string true "ID do investimento"
+// @Param id path string true "ID da receita"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Failure 404 {object} common.BadRequest
-// @Router /investments/remove/{id} [delete]
-func DeleteInvestment(ctx *fiber.Ctx) error {
+// @Router /revenues/remove/{id} [delete]
+func DeleteRevenues(ctx *fiber.Ctx) error {
 	params := new(deleteParams)
 	if err := ctx.ParamsParser(params); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
@@ -35,7 +35,7 @@ func DeleteInvestment(ctx *fiber.Ctx) error {
 		})
 	}
 
-	ok, err := repository.DeleteInvestment(params.Id)
+	ok, err := repository.DeleteRevenues(params.Id)
 	if err != nil {
 		return ctx.Status(fiber.StatusBadGateway).JSON(common.BadRequest{
 			Message: err.Error(),
@@ -45,13 +45,13 @@ func DeleteInvestment(ctx *fiber.Ctx) error {
 
 	if !ok {
 		return ctx.Status(fiber.StatusNotFound).JSON(common.BadRequest{
-			Message: "Investimento não encontrado",
+			Message: "Receita não encontrada",
 			Success: false,
 		})
 	}
 
 	return ctx.Status(fiber.StatusOK).JSON(common.Response{
-		Message: "Investimento deletado com sucesso",
+		Message: "Receita deletada com sucesso",
 		Success: true,
 		Data:    ok,
 	})

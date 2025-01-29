@@ -54,16 +54,30 @@ func UpdateCategory(id string, newCategory *domain.Categories) (domain.Categorie
 	defer cancel()
 
 	filter := bson.M{"_id": tools.StringToObjectId(id)}
+	updateFields := bson.M{}
+
+	if newCategory.Category != "" {
+		updateFields["category"] = newCategory.Category
+	}
+
+	if newCategory.Parent != nil {
+		updateFields["parent"] = newCategory.Parent
+	}
 
 	newCategory.UpdatedAt = time.Now()
 
-	res, err := tools.UpdateOne(ctx, constant.CollectionCategory, filter, bson.M{"$set": newCategory})
+	res, err := tools.UpdateOne(ctx, constant.CollectionCategory, filter, bson.M{"$set": updateFields})
 	if err != nil {
 		return domain.Categories{}, err
 	}
 
 	if res.ModifiedCount > 0 {
-		return *newCategory, nil
+		var updatedCategory domain.Categories
+		err = tools.FindOne(ctx, constant.CollectionCategory, filter, nil).Decode(&updatedCategory)
+		if err != nil {
+			return domain.Categories{}, err
+		}
+		return updatedCategory, nil
 	}
 
 	return domain.Categories{}, errors.New("categoria não encontrada")

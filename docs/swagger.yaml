@@ -46,6 +46,41 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
+  github_com_vkunssec_contabius_pkg_domain.Costs:
+    properties:
+      amount:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        description: Valor do custo
+      category:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+        description: Categoria do custo
+      cost:
+        description: Descrição do custo
+        example: aluguel
+        type: string
+      created_at:
+        description: Data de criação do custo
+        example: "2025-01-01T00:00:00Z"
+        type: string
+      id:
+        description: ID do custo
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+      installments:
+        description: Número de parcelas
+        example: 12
+        type: integer
+      methods:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        description: Método de pagamento
+      updated_at:
+        description: Data de atualização do custo
+        example: "2025-01-01T00:00:00Z"
+        type: string
+    type: object
   github_com_vkunssec_contabius_pkg_domain.Currency:
     enum:
     - BRL
@@ -259,6 +294,33 @@ definitions:
     - RecurrenceMonthly
     - RecurrenceYearly
     - RecurrenceSporadic
+  github_com_vkunssec_contabius_pkg_domain.Revenues:
+    properties:
+      amount:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        description: Valor da receita
+      created_at:
+        description: Data de criação da receita
+        example: "2025-01-01T00:00:00Z"
+        type: string
+      id:
+        description: ID da receita
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+      method:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        description: Método de pagamento
+      revenue:
+        description: Receita
+        example: salário
+        type: string
+      updated_at:
+        description: Data de atualização da receita
+        example: "2025-01-01T00:00:00Z"
+        type: string
+    type: object
   github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
     description: Estrutura padrão de resposta de erro de requisição
     properties:
@@ -428,7 +490,7 @@ paths:
       summary: Rota para criar uma conta bancária
       tags:
       - Account
-  /account/delete/{id}:
+  /account/remove/{id}:
     delete:
       consumes:
       - application/json
@@ -574,7 +636,7 @@ paths:
       summary: Rota para criar uma categoria
       tags:
       - Category
-  /category/delete/{id}:
+  /category/remove/{id}:
     delete:
       consumes:
       - application/json
@@ -648,6 +710,150 @@ paths:
       summary: Rota para atualizar uma categoria
       tags:
       - Category
+  /costs:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar os custos
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Ids dos custos a serem retornados
+        example:
+        - 678079f6f5080a39a8eedc1e
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar os custos
+      tags:
+      - Costs
+    post:
+      consumes:
+      - application/json
+      description: Rota para criar um custo
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do custo
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para criar um custo
+      tags:
+      - Costs
+  /costs/remove/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Rota para deletar um custo
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID do custo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para deletar um custo
+      tags:
+      - Costs
+  /costs/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar um custo
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do custo
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs'
+      - description: ID do custo
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar um custo
+      tags:
+      - Costs
   /investment/update/{id}:
     put:
       consumes:
@@ -775,42 +981,6 @@ paths:
       summary: Rota para criar um investimento
       tags:
       - Investments
-  /investments/delete/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Rota para deletar um investimento
-      parameters:
-      - description: Token Bearer
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      - description: ID do investimento
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
-      security:
-      - ApiKeyAuth: []
-      summary: Rota para deletar um investimento
-      tags:
-      - Investments
   /investments/get_types:
     get:
       consumes:
@@ -866,6 +1036,42 @@ paths:
       summary: Rota para retornar todos os tipos de investimentos
       tags:
       - Investments
+  /investments/remove/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Rota para deletar um investimento
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID do investimento
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para deletar um investimento
+      tags:
+      - Investments
   /methods:
     get:
       consumes:
@@ -911,6 +1117,150 @@ paths:
       summary: Rota para retornar todos os métodos
       tags:
       - Methods
+  /revenues:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar as receitas
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: Ids das receitas a serem retornadas
+        example:
+        - 678079f6f5080a39a8eedc1e
+        in: query
+        items:
+          type: string
+        name: ids
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar as receitas
+      tags:
+      - Revenues
+    post:
+      consumes:
+      - application/json
+      description: Rota para criar uma receita
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da receita
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para criar uma receita
+      tags:
+      - Revenues
+  /revenues/remove/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Rota para deletar uma receita
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: ID da receita
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para deletar uma receita
+      tags:
+      - Revenues
+  /revenues/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar uma receita
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da receita
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues'
+      - description: ID da receita
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar uma receita
+      tags:
+      - Revenues
 schemes:
 - http
 - https

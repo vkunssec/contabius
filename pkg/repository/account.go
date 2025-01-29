@@ -56,16 +56,30 @@ func UpdateBankAccount(id string, newAccount *domain.Accounts) (domain.Accounts,
 	defer cancel()
 
 	filter := bson.M{"_id": tools.StringToObjectId(id)}
+	updateFields := bson.M{}
 
-	newAccount.UpdatedAt = time.Now()
+	if newAccount.Account != "" {
+		updateFields["account"] = newAccount.Account
+	}
 
-	res, err := tools.UpdateOne(ctx, constant.CollectionBank, filter, bson.M{"$set": newAccount})
+	if newAccount.Color != "" {
+		updateFields["color"] = newAccount.Color
+	}
+
+	updateFields["updated_at"] = time.Now()
+
+	res, err := tools.UpdateOne(ctx, constant.CollectionBank, filter, bson.M{"$set": updateFields})
 	if err != nil {
 		return domain.Accounts{}, err
 	}
 
 	if res.ModifiedCount > 0 {
-		return *newAccount, nil
+		var updatedAccount domain.Accounts
+		err = tools.FindOne(ctx, constant.CollectionBank, filter, nil).Decode(&updatedAccount)
+		if err != nil {
+			return domain.Accounts{}, err
+		}
+		return updatedAccount, nil
 	}
 
 	return domain.Accounts{}, errors.New("conta bancária não encontrada")

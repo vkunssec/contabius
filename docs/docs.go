@@ -132,7 +132,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/account/delete/{id}": {
+        "/account/remove/{id}": {
             "delete": {
                 "security": [
                     {
@@ -359,7 +359,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/category/delete/{id}": {
+        "/category/remove/{id}": {
             "delete": {
                 "security": [
                     {
@@ -453,6 +453,230 @@ const docTemplate = `{
                     {
                         "type": "string",
                         "description": "ID da categoria",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/costs": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para retornar os custos",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Costs"
+                ],
+                "summary": "Rota para retornar os custos",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "example": [
+                            "678079f6f5080a39a8eedc1e"
+                        ],
+                        "description": "Ids dos custos a serem retornados",
+                        "name": "ids",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para criar um custo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Costs"
+                ],
+                "summary": "Rota para criar um custo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do custo",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/costs/remove/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para deletar um custo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Costs"
+                ],
+                "summary": "Rota para deletar um custo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID do custo",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/costs/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para atualizar um custo",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Costs"
+                ],
+                "summary": "Rota para atualizar um custo",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do custo",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID do custo",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -662,62 +886,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/investments/delete/{id}": {
-            "delete": {
-                "security": [
-                    {
-                        "ApiKeyAuth": []
-                    }
-                ],
-                "description": "Rota para deletar um investimento",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Investments"
-                ],
-                "summary": "Rota para deletar um investimento",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "Token Bearer",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "ID do investimento",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
-                        }
-                    }
-                }
-            }
-        },
         "/investments/get_types": {
             "get": {
                 "security": [
@@ -794,6 +962,62 @@ const docTemplate = `{
                 }
             }
         },
+        "/investments/remove/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para deletar um investimento",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Investments"
+                ],
+                "summary": "Rota para deletar um investimento",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID do investimento",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
         "/methods": {
             "get": {
                 "security": [
@@ -859,6 +1083,230 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/revenues": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para retornar as receitas",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Revenues"
+                ],
+                "summary": "Rota para retornar as receitas",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv",
+                        "example": [
+                            "678079f6f5080a39a8eedc1e"
+                        ],
+                        "description": "Ids das receitas a serem retornadas",
+                        "name": "ids",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para criar uma receita",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Revenues"
+                ],
+                "summary": "Rota para criar uma receita",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da receita",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/revenues/remove/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para deletar uma receita",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Revenues"
+                ],
+                "summary": "Rota para deletar uma receita",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID da receita",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/revenues/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para atualizar uma receita",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Revenues"
+                ],
+                "summary": "Rota para atualizar uma receita",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da receita",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID da receita",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -917,6 +1365,60 @@ const docTemplate = `{
                 },
                 "updated_at": {
                     "description": "Data de atualização",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Costs": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "description": "Valor do custo",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "category": {
+                    "description": "Categoria do custo",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
+                        }
+                    ]
+                },
+                "cost": {
+                    "description": "Descrição do custo",
+                    "type": "string",
+                    "example": "aluguel"
+                },
+                "created_at": {
+                    "description": "Data de criação do custo",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                },
+                "id": {
+                    "description": "ID do custo",
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                },
+                "installments": {
+                    "description": "Número de parcelas",
+                    "type": "integer",
+                    "example": 12
+                },
+                "methods": {
+                    "description": "Método de pagamento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                        }
+                    ]
+                },
+                "updated_at": {
+                    "description": "Data de atualização do custo",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
                 }
@@ -1204,6 +1706,47 @@ const docTemplate = `{
                 "RecurrenceYearly",
                 "RecurrenceSporadic"
             ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.Revenues": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "description": "Valor da receita",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "created_at": {
+                    "description": "Data de criação da receita",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                },
+                "id": {
+                    "description": "ID da receita",
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                },
+                "method": {
+                    "description": "Método de pagamento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                        }
+                    ]
+                },
+                "revenue": {
+                    "description": "Receita",
+                    "type": "string",
+                    "example": "salário"
+                },
+                "updated_at": {
+                    "description": "Data de atualização da receita",
+                    "type": "string",
+                    "example": "2025-01-01T00:00:00Z"
+                }
+            }
         },
         "github_com_vkunssec_contabius_pkg_domain_common.BadRequest": {
             "description": "Estrutura padrão de resposta de erro de requisição",
