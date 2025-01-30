@@ -1307,6 +1307,264 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/user/login": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para logar um usuário",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota para logar um usuário",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do usuário",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/me": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para retornar o usuário logado",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota para retornar o usuário logado",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/signup": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para criar um usuário",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota para criar um usuário",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do usuário",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update/password/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para atualizar a senha de um usuário",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota para atualizar a senha de um usuário",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados da senha",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update/{id}": {
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Rota para atualizar um usuário",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Rota para atualizar um usuário",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token Bearer",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Dados do usuário",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "ID do usuário",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1951,6 +2209,99 @@ const docTemplate = `{
                     "description": "Data de atualização da receita",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.UserRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "password",
+                "type"
+            ],
+            "properties": {
+                "email": {
+                    "description": "Email do usuário",
+                    "type": "string",
+                    "example": "user@example.com"
+                },
+                "name": {
+                    "description": "Nome do usuário",
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "password": {
+                    "description": "Senha do usuário",
+                    "type": "string",
+                    "example": "password123"
+                },
+                "type": {
+                    "description": "Tipo de usuário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType"
+                        }
+                    ],
+                    "example": "admin"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.UserType": {
+            "type": "string",
+            "enum": [
+                "admin",
+                "user"
+            ],
+            "x-enum-varnames": [
+                "UserTypeAdmin",
+                "UserTypeUser"
+            ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword": {
+            "type": "object",
+            "required": [
+                "password",
+                "password_confirm"
+            ],
+            "properties": {
+                "password": {
+                    "description": "Senha do usuário",
+                    "type": "string",
+                    "example": "password123"
+                },
+                "password_confirm": {
+                    "description": "Senha do usuário",
+                    "type": "string",
+                    "example": "password123"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest": {
+            "type": "object",
+            "required": [
+                "email",
+                "name"
+            ],
+            "properties": {
+                "email": {
+                    "description": "Email do usuário",
+                    "type": "string",
+                    "example": "user@example.com"
+                },
+                "name": {
+                    "description": "Nome do usuário",
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "type": {
+                    "description": "Tipo de usuário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType"
+                        }
+                    ],
+                    "example": "admin"
                 }
             }
         },

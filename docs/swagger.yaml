@@ -456,6 +456,72 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
+  github_com_vkunssec_contabius_pkg_domain.UserRequest:
+    properties:
+      email:
+        description: Email do usuário
+        example: user@example.com
+        type: string
+      name:
+        description: Nome do usuário
+        example: John Doe
+        type: string
+      password:
+        description: Senha do usuário
+        example: password123
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType'
+        description: Tipo de usuário
+        example: admin
+    required:
+    - email
+    - name
+    - password
+    - type
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.UserType:
+    enum:
+    - admin
+    - user
+    type: string
+    x-enum-varnames:
+    - UserTypeAdmin
+    - UserTypeUser
+  github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword:
+    properties:
+      password:
+        description: Senha do usuário
+        example: password123
+        type: string
+      password_confirm:
+        description: Senha do usuário
+        example: password123
+        type: string
+    required:
+    - password
+    - password_confirm
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest:
+    properties:
+      email:
+        description: Email do usuário
+        example: user@example.com
+        type: string
+      name:
+        description: Nome do usuário
+        example: John Doe
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType'
+        description: Tipo de usuário
+        example: admin
+    required:
+    - email
+    - name
+    type: object
   github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
     description: Estrutura padrão de resposta de erro de requisição
     properties:
@@ -1396,6 +1462,170 @@ paths:
       summary: Rota para atualizar uma receita
       tags:
       - Revenues
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Rota para logar um usuário
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do usuário
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para logar um usuário
+      tags:
+      - User
+  /user/me:
+    get:
+      consumes:
+      - application/json
+      description: Rota para retornar o usuário logado
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para retornar o usuário logado
+      tags:
+      - User
+  /user/signup:
+    post:
+      consumes:
+      - application/json
+      description: Rota para criar um usuário
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do usuário
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para criar um usuário
+      tags:
+      - User
+  /user/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar um usuário
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados do usuário
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest'
+      - description: ID do usuário
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar um usuário
+      tags:
+      - User
+  /user/update/password/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Rota para atualizar a senha de um usuário
+      parameters:
+      - description: Token Bearer
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Dados da senha
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+      security:
+      - ApiKeyAuth: []
+      summary: Rota para atualizar a senha de um usuário
+      tags:
+      - User
 schemes:
 - http
 - https
