@@ -17,12 +17,12 @@ import (
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.Accounts true "Dados da conta bancária"
+// @Param request body domain.AccountRequest true "Dados da conta bancária"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Router /account [post]
 func CreateAccount(ctx *fiber.Ctx) error {
-	account := new(domain.Accounts)
+	account := new(domain.AccountRequest)
 	if err := ctx.BodyParser(account); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
 			Message: err.Error(),

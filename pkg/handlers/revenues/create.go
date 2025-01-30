@@ -17,12 +17,12 @@ import (
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.Revenues true "Dados da receita"
+// @Param request body domain.RevenueRequest true "Dados da receita"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Router /revenues [post]
 func CreateRevenues(ctx *fiber.Ctx) error {
-	revenue := new(domain.Revenues)
+	revenue := new(domain.RevenueRequest)
 	if err := ctx.BodyParser(revenue); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
 			Message: err.Error(),

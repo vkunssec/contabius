@@ -17,13 +17,13 @@ import (
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.Categories true "Dados da categoria"
+// @Param request body domain.CategoryRequest true "Dados da categoria"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Failure 500 {object} common.InternalServerError
 // @Router /category [post]
 func CreateCategory(ctx *fiber.Ctx) error {
-	category := new(domain.Categories)
+	category := new(domain.CategoryRequest)
 	if err := ctx.BodyParser(category); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
 			Message: err.Error(),

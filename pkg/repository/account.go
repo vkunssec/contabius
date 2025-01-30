@@ -15,10 +15,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func CreateBankAccount(account *domain.Accounts) (domain.Accounts, error) {
+func CreateBankAccount(request *domain.AccountRequest) (domain.Accounts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
+	var account domain.Accounts
+
+	account.Account = request.Account
+	account.Color = request.Color
 	account.CreatedAt = time.Now()
 	account.UpdatedAt = time.Now()
 
@@ -26,7 +30,7 @@ func CreateBankAccount(account *domain.Accounts) (domain.Accounts, error) {
 
 	account.Id = result.InsertedID.(primitive.ObjectID)
 
-	return *account, err
+	return account, err
 }
 
 func GetBankAccount(ids []string) ([]domain.Accounts, error) {

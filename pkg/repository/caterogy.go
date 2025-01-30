@@ -13,10 +13,16 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func CreateCategory(category *domain.Categories) (domain.Categories, error) {
+func CreateCategory(request *domain.CategoryRequest) (domain.Categories, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
+	var category domain.Categories
+
+	category.Category = request.Category
+	if request.Parent != nil {
+		category.Parent = request.Parent
+	}
 	category.CreatedAt = time.Now()
 	category.UpdatedAt = time.Now()
 
@@ -24,7 +30,7 @@ func CreateCategory(category *domain.Categories) (domain.Categories, error) {
 
 	category.Id = result.InsertedID.(primitive.ObjectID)
 
-	return *category, err
+	return category, err
 }
 
 func GetCategory(ids []string) ([]domain.Categories, error) {

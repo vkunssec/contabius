@@ -17,12 +17,12 @@ import (
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.Investments true "Dados do investimento"
+// @Param request body domain.InvestmentRequest true "Dados do investimento"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Router /investments [post]
 func CreateInvestment(ctx *fiber.Ctx) error {
-	investment := new(domain.Investments)
+	investment := new(domain.InvestmentRequest)
 	if err := ctx.BodyParser(investment); err != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(common.BadRequest{
 			Message: err.Error(),

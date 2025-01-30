@@ -15,9 +15,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func CreateRevenues(revenue *domain.Revenues) (domain.Revenues, error) {
+func CreateRevenues(request *domain.RevenueRequest) (domain.Revenues, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	var revenue domain.Revenues
+
+	revenue.Revenue = request.Revenue
+	revenue.Amount = request.Amount
+	if request.Method != nil {
+		revenue.Method = request.Method
+	}
 
 	revenue.CreatedAt = time.Now()
 	revenue.UpdatedAt = time.Now()
@@ -26,7 +34,7 @@ func CreateRevenues(revenue *domain.Revenues) (domain.Revenues, error) {
 
 	revenue.Id = result.InsertedID.(primitive.ObjectID)
 
-	return *revenue, err
+	return revenue, err
 }
 
 func GetRevenues(ids []string) ([]domain.Revenues, error) {

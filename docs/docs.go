@@ -112,7 +112,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.AccountRequest"
                         }
                     }
                 ],
@@ -333,7 +333,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.CategoryRequest"
                         }
                     }
                 ],
@@ -563,7 +563,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.CostRequest"
                         }
                     }
                 ],
@@ -866,7 +866,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentRequest"
                         }
                     }
                 ],
@@ -1173,7 +1173,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues"
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.RevenueRequest"
                         }
                     }
                 ],
@@ -1310,6 +1310,25 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "github_com_vkunssec_contabius_pkg_domain.AccountRequest": {
+            "type": "object",
+            "required": [
+                "account",
+                "color"
+            ],
+            "properties": {
+                "account": {
+                    "description": "Nome da conta",
+                    "type": "string",
+                    "example": "Conta Corrente"
+                },
+                "color": {
+                    "description": "Cor da conta",
+                    "type": "string",
+                    "example": "#000000"
+                }
+            }
+        },
         "github_com_vkunssec_contabius_pkg_domain.Accounts": {
             "type": "object",
             "properties": {
@@ -1367,6 +1386,68 @@ const docTemplate = `{
                     "description": "Data de atualização",
                     "type": "string",
                     "example": "2025-01-01T00:00:00Z"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.CategoryRequest": {
+            "type": "object",
+            "required": [
+                "category"
+            ],
+            "properties": {
+                "category": {
+                    "description": "Nome da categoria",
+                    "type": "string",
+                    "example": "Alimentação"
+                },
+                "parent": {
+                    "description": "ID do pai da categoria",
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.CostRequest": {
+            "type": "object",
+            "required": [
+                "amount",
+                "category",
+                "cost"
+            ],
+            "properties": {
+                "amount": {
+                    "description": "Valor do custo",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "category": {
+                    "description": "ID da categoria",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest"
+                        }
+                    ]
+                },
+                "cost": {
+                    "description": "Descrição do custo",
+                    "type": "string",
+                    "example": "aluguel"
+                },
+                "installments": {
+                    "description": "Número de parcelas",
+                    "type": "integer",
+                    "example": 12
+                },
+                "methods": {
+                    "description": "Método de pagamento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                        }
+                    ]
                 }
             }
         },
@@ -1527,6 +1608,57 @@ const docTemplate = `{
                 "InvestmentTypeCOE",
                 "InvestmentTypeOther"
             ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.InvestmentRequest": {
+            "type": "object",
+            "required": [
+                "account",
+                "amount",
+                "investment_type"
+            ],
+            "properties": {
+                "account": {
+                    "description": "Conta do usuário",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest"
+                        }
+                    ]
+                },
+                "amount": {
+                    "description": "Valor do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "description": {
+                    "description": "Descrição do investimento",
+                    "type": "string",
+                    "example": "Investimento em CDB"
+                },
+                "investment_type": {
+                    "description": "Tipo de investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
+                        }
+                    ]
+                },
+                "recurrence": {
+                    "description": "Recurrence do investimento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence"
+                        }
+                    ]
+                },
+                "recurrence_day": {
+                    "description": "Dia da recorrência",
+                    "type": "integer"
+                }
+            }
         },
         "github_com_vkunssec_contabius_pkg_domain.InvestmentType": {
             "type": "object",
@@ -1689,6 +1821,50 @@ const docTemplate = `{
                 }
             }
         },
+        "github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest": {
+            "type": "object",
+            "required": [
+                "account",
+                "color",
+                "id"
+            ],
+            "properties": {
+                "account": {
+                    "description": "Nome da conta",
+                    "type": "string",
+                    "example": "Conta Corrente"
+                },
+                "color": {
+                    "description": "Cor da conta",
+                    "type": "string",
+                    "example": "#000000"
+                },
+                "id": {
+                    "description": "ID da conta",
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                }
+            }
+        },
+        "github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest": {
+            "type": "object",
+            "required": [
+                "category",
+                "id"
+            ],
+            "properties": {
+                "category": {
+                    "description": "Nome da categoria",
+                    "type": "string",
+                    "example": "Alimentação"
+                },
+                "id": {
+                    "description": "ID da categoria",
+                    "type": "string",
+                    "example": "678079f6f5080a39a8eedc1e"
+                }
+            }
+        },
         "github_com_vkunssec_contabius_pkg_domain.Recurrence": {
             "type": "string",
             "enum": [
@@ -1706,6 +1882,36 @@ const docTemplate = `{
                 "RecurrenceYearly",
                 "RecurrenceSporadic"
             ]
+        },
+        "github_com_vkunssec_contabius_pkg_domain.RevenueRequest": {
+            "type": "object",
+            "required": [
+                "amount",
+                "revenue"
+            ],
+            "properties": {
+                "amount": {
+                    "description": "Valor da receita",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                        }
+                    ]
+                },
+                "method": {
+                    "description": "Método de pagamento",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                        }
+                    ]
+                },
+                "revenue": {
+                    "description": "Receita",
+                    "type": "string",
+                    "example": "salário"
+                }
+            }
         },
         "github_com_vkunssec_contabius_pkg_domain.Revenues": {
             "type": "object",

@@ -77,6 +77,16 @@ type Investments struct {
 	UpdatedAt     time.Time          `json:"updated_at,omitempty" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"`  // Data de atualização do investimento
 }
 
+// InvestmentRequest é uma estrutura que representa uma requisição para criar um investimento
+type InvestmentRequest struct {
+	Investment    InvestmentType        `json:"investment_type" bson:"investment_type" validate:"required"`                       // Tipo de investimento
+	Amount        Money                 `json:"amount" bson:"amount" validate:"required"`                                         // Valor do investimento
+	Account       PartialAccountRequest `json:"account" bson:"account" validate:"required"`                                       // Conta do usuário
+	Recurrence    Recurrence            `json:"recurrence" bson:"recurrence" `                                                    // Recurrence do investimento
+	RecurrenceDay *RecurrenceDay        `json:"recurrence_day" bson:"recurrence_day" `                                            // Dia da recorrência
+	Description   *string               `json:"description,omitempty" bson:"description,omitempty" example:"Investimento em CDB"` // Descrição do investimento
+}
+
 // Validate valida os campos do investimento
 func (i *InvestmentType) Validate() error {
 	if i.Investment == "" {

@@ -22,10 +22,28 @@ func GetInvestmentTypes(ids []domain.InvestmentId) ([]domain.InvestmentType, err
 	return domain.GetInvestments(ids)
 }
 
-func CreateInvestment(investment *domain.Investments) (domain.Investments, error) {
+func CreateInvestment(request *domain.InvestmentRequest) (domain.Investments, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
+	var investment domain.Investments
+	var account domain.Accounts
+
+	investment.Investment = request.Investment
+	investment.Amount = request.Amount
+
+	account.Id = request.Account.Id
+	account.Account = request.Account.Account
+	account.Color = request.Account.Color
+	investment.Account = account
+
+	investment.Recurrence = request.Recurrence
+	if request.RecurrenceDay != nil {
+		investment.RecurrenceDay = request.RecurrenceDay
+	}
+	if request.Description != nil {
+		investment.Description = request.Description
+	}
 	investment.CreatedAt = time.Now()
 	investment.UpdatedAt = time.Now()
 
@@ -33,7 +51,7 @@ func CreateInvestment(investment *domain.Investments) (domain.Investments, error
 
 	investment.Id = result.InsertedID.(primitive.ObjectID)
 
-	return *investment, err
+	return investment, err
 }
 
 func GetInvestments(ids []string) ([]domain.Investments, error) {

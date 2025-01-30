@@ -15,9 +15,25 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func CreateCosts(cost *domain.Costs) (domain.Costs, error) {
+func CreateCosts(request *domain.CostRequest) (domain.Costs, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
+
+	var cost domain.Costs
+	var category domain.Categories
+
+	cost.Cost = request.Cost
+	cost.Amount = request.Amount
+	if request.Installments > 0 {
+		cost.Installments = request.Installments
+	}
+	if request.Methods != nil {
+		cost.Methods = request.Methods
+	}
+
+	category.Id = request.Category.Id
+	category.Category = request.Category.Category
+	cost.Category = category
 
 	cost.CreatedAt = time.Now()
 	cost.UpdatedAt = time.Now()
@@ -26,7 +42,7 @@ func CreateCosts(cost *domain.Costs) (domain.Costs, error) {
 
 	cost.Id = result.InsertedID.(primitive.ObjectID)
 
-	return *cost, err
+	return cost, err
 }
 
 func GetCosts(ids []string) ([]domain.Costs, error) {

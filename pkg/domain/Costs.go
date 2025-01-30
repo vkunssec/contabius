@@ -17,3 +17,12 @@ type Costs struct {
 	CreatedAt    time.Time          `json:"created_at" bson:"created_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de criação do custo
 	UpdatedAt    time.Time          `json:"updated_at" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de atualização do custo
 }
+
+// CostRequest é uma estrutura que representa uma requisição para criar um custo
+type CostRequest struct {
+	Cost         string                 `json:"cost" bson:"cost" example:"aluguel" validate:"required"`  // Descrição do custo
+	Amount       Money                  `json:"amount" bson:"amount" validate:"required"`                // Valor do custo
+	Installments int                    `json:"installments" bson:"installments,omitempty" example:"12"` // Número de parcelas
+	Methods      *Methods               `json:"methods" bson:"methods"`                                  // Método de pagamento
+	Category     PartialCategoryRequest `json:"category" bson:"category" validate:"required"`            // ID da categoria
+}

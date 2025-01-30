@@ -1,5 +1,19 @@
 basePath: /
 definitions:
+  github_com_vkunssec_contabius_pkg_domain.AccountRequest:
+    properties:
+      account:
+        description: Nome da conta
+        example: Conta Corrente
+        type: string
+      color:
+        description: Cor da conta
+        example: '#000000'
+        type: string
+    required:
+    - account
+    - color
+    type: object
   github_com_vkunssec_contabius_pkg_domain.Accounts:
     properties:
       account:
@@ -45,6 +59,46 @@ definitions:
         description: Data de atualização
         example: "2025-01-01T00:00:00Z"
         type: string
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.CategoryRequest:
+    properties:
+      category:
+        description: Nome da categoria
+        example: Alimentação
+        type: string
+      parent:
+        description: ID do pai da categoria
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+    required:
+    - category
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.CostRequest:
+    properties:
+      amount:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        description: Valor do custo
+      category:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest'
+        description: ID da categoria
+      cost:
+        description: Descrição do custo
+        example: aluguel
+        type: string
+      installments:
+        description: Número de parcelas
+        example: 12
+        type: integer
+      methods:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        description: Método de pagamento
+    required:
+    - amount
+    - category
+    - cost
     type: object
   github_com_vkunssec_contabius_pkg_domain.Costs:
     properties:
@@ -175,6 +229,36 @@ definitions:
     - InvestmentTypeBDR
     - InvestmentTypeCOE
     - InvestmentTypeOther
+  github_com_vkunssec_contabius_pkg_domain.InvestmentRequest:
+    properties:
+      account:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest'
+        description: Conta do usuário
+      amount:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        description: Valor do investimento
+      description:
+        description: Descrição do investimento
+        example: Investimento em CDB
+        type: string
+      investment_type:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
+        description: Tipo de investimento
+      recurrence:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence'
+        description: Recurrence do investimento
+      recurrence_day:
+        description: Dia da recorrência
+        type: integer
+    required:
+    - account
+    - amount
+    - investment_type
+    type: object
   github_com_vkunssec_contabius_pkg_domain.InvestmentType:
     properties:
       id:
@@ -280,6 +364,39 @@ definitions:
         example: 1000
         type: integer
     type: object
+  github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest:
+    properties:
+      account:
+        description: Nome da conta
+        example: Conta Corrente
+        type: string
+      color:
+        description: Cor da conta
+        example: '#000000'
+        type: string
+      id:
+        description: ID da conta
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+    required:
+    - account
+    - color
+    - id
+    type: object
+  github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest:
+    properties:
+      category:
+        description: Nome da categoria
+        example: Alimentação
+        type: string
+      id:
+        description: ID da categoria
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+    required:
+    - category
+    - id
+    type: object
   github_com_vkunssec_contabius_pkg_domain.Recurrence:
     enum:
     - monthly
@@ -294,6 +411,24 @@ definitions:
     - RecurrenceMonthly
     - RecurrenceYearly
     - RecurrenceSporadic
+  github_com_vkunssec_contabius_pkg_domain.RevenueRequest:
+    properties:
+      amount:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        description: Valor da receita
+      method:
+        allOf:
+        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        description: Método de pagamento
+      revenue:
+        description: Receita
+        example: salário
+        type: string
+    required:
+    - amount
+    - revenue
+    type: object
   github_com_vkunssec_contabius_pkg_domain.Revenues:
     properties:
       amount:
@@ -473,7 +608,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.AccountRequest'
       produces:
       - application/json
       responses:
@@ -615,7 +750,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.CategoryRequest'
       produces:
       - application/json
       responses:
@@ -763,7 +898,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs'
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.CostRequest'
       produces:
       - application/json
       responses:
@@ -964,7 +1099,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments'
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentRequest'
       produces:
       - application/json
       responses:
@@ -1170,7 +1305,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues'
+          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.RevenueRequest'
       produces:
       - application/json
       responses:
