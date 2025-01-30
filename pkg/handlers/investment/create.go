@@ -5,6 +5,7 @@ import (
 	"github.com/vkunssec/contabius/pkg/domain"
 	"github.com/vkunssec/contabius/pkg/domain/common"
 	"github.com/vkunssec/contabius/pkg/repository"
+	"github.com/vkunssec/contabius/presentation"
 
 	_ "github.com/vkunssec/contabius/docs"
 )
@@ -28,6 +29,11 @@ func CreateInvestment(ctx *fiber.Ctx) error {
 			Message: err.Error(),
 			Success: false,
 		})
+	}
+
+	requestErrors := presentation.RequestValidation(investment)
+	if len(requestErrors) > 0 {
+		return ctx.Status(fiber.StatusBadRequest).JSON(requestErrors)
 	}
 
 	saved, err := repository.CreateInvestment(investment)
