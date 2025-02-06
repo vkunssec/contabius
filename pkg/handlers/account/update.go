@@ -14,7 +14,7 @@ import (
 // @Description Parâmetros da requisição para atualizar uma conta bancária
 type updateParams struct {
 	Id string `params:"id"` // ID da conta bancária
-}
+} // @name updateParams
 
 // UpdateAccount é uma função que atualiza uma conta bancária
 // @Summary Rota para atualizar uma conta bancária

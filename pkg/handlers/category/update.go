@@ -13,7 +13,7 @@ import (
 // @Description Parâmetros da requisição para atualizar uma categoria
 type updateParams struct {
 	Id string `params:"id"` // ID da categoria
-}
+} // @name updateParams
 
 // UpdateCategory é uma função que atualiza uma categoria
 // @Summary Rota para atualizar uma categoria

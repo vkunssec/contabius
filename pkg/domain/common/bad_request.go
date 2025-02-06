@@ -7,4 +7,4 @@ type BadRequest struct {
 	Success bool `json:"success" example:"false"`
 	// Mensagem descritiva
 	Message string `json:"message" example:"Erro ao processar a requisição"`
-}
+} // @name BadRequest

@@ -14,7 +14,7 @@ import (
 // @Description Parâmetros da requisição para atualizar um usuário
 type updateParams struct {
 	Id string `params:"id"` // ID do usuário
-}
+} // @name updateParams
 
 // UpdateUser é uma função que atualiza um usuário
 // @Summary Rota para atualizar um usuário

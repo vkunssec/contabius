@@ -9,4 +9,4 @@ type Response struct {
 	Message string `json:"message" example:"Operação realizada com sucesso"`
 	// Dados da resposta
 	Data interface{} `json:"data,omitempty"`
-}
+} // @name Response

@@ -7,11 +7,12 @@ import (
 )
 
 // UserType é um tipo de usuário
-type UserType string
+type UserType string // @name UserType
 
 const (
 	UserTypeAdmin UserType = "admin"
 	UserTypeUser  UserType = "user"
+	UserTypeGuest UserType = "guest"
 )
 
 // User é uma estrutura que representa um usuário
@@ -23,7 +24,7 @@ type User struct {
 	Type      UserType           `json:"type" bson:"type" example:"admin"`                                                // Tipo de usuário
 	CreatedAt time.Time          `json:"created_at,omitempty" bson:"created_at,omitempty" example:"2021-01-01T00:00:00Z"` // Data de criação do usuário
 	UpdatedAt time.Time          `json:"updated_at,omitempty" bson:"updated_at,omitempty" example:"2021-01-01T00:00:00Z"` // Data de atualização do usuário
-}
+} // @name User
 
 // UserRequest é uma estrutura que representa a requisição de criação de um usuário
 type UserRequest struct {
@@ -31,23 +32,23 @@ type UserRequest struct {
 	Email    string   `json:"email" bson:"email" example:"user@example.com" validate:"required,email"` // Email do usuário
 	Password string   `json:"password" bson:"password" example:"password123" validate:"required"`      // Senha do usuário
 	Type     UserType `json:"type" bson:"type" example:"admin" validate:"required"`                    // Tipo de usuário
-}
+} // @name UserRequest
 
 // UserUpdateRequest é uma estrutura que representa a requisição de atualização de um usuário
 type UserUpdateRequest struct {
 	Name  string    `json:"name" bson:"name" example:"John Doe" validate:"required"`                 // Nome do usuário
 	Email string    `json:"email" bson:"email" example:"user@example.com" validate:"required,email"` // Email do usuário
 	Type  *UserType `json:"type,omitempty" bson:"type,omitempty" example:"admin"`                    // Tipo de usuário
-}
+} // @name UserUpdateRequest
 
 // UserUpdatePassword é uma estrutura que representa a requisição de atualização de senha de um usuário
 type UserUpdatePassword struct {
 	Password        string `json:"password" bson:"password" example:"password123" validate:"required"`                 // Senha do usuário
 	PasswordConfirm string `json:"password_confirm" bson:"password_confirm" example:"password123" validate:"required"` // Senha do usuário
-}
+} // @name UserUpdatePassword
 
 // UserLogin é uma estrutura que representa a requisição de login de um usuário
 type UserLogin struct {
 	Email    string `json:"email" bson:"email" example:"user@example.com" validate:"required,email"` // Email do usuário
 	Password string `json:"password" bson:"password" example:"password123" validate:"required"`      // Senha do usuário
-}
+} // @name UserLogin

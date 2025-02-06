@@ -7,4 +7,4 @@ type InternalServerError struct {
 	Success bool `json:"success" example:"false"`
 	// Mensagem descritiva
 	Message string `json:"message" example:"Internal Server Error"`
-}
+} // @name InternalServerError

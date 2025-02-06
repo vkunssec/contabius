@@ -11,7 +11,7 @@ import (
 // deleteParams é a estrutura que contém os parâmetros da requisição
 type deleteParams struct {
 	Id string `params:"id" example:"678079f6f5080a39a8eedc1e"` // ID do custo a ser deletado
-}
+} // @name deleteParams
 
 // DeleteCosts é uma função que deleta um custo
 // @Summary Rota para deletar um custo

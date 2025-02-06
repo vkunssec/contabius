@@ -13,14 +13,14 @@ import (
 // GetByIdQueryParams é a estrutura que contém os parâmetros da requisição
 type GetByIdQueryParams struct {
 	Ids []string `query:"ids" example:"678079f6f5080a39a8eedc1e"` // Ids das receitas a serem retornadas
-}
+} // @name GetByIdQueryParams
 
 // GetAccountsResponse é a estrutura que contém a resposta da requisição
 type GetAccountsResponse struct {
 	Success  bool              `json:"success" example:"true"`                          // Sucesso da operação
 	Message  string            `json:"message" example:"Receita retornada com sucesso"` // Mensagem de sucesso ou erro
 	Accounts []domain.Revenues `json:"accounts"`                                        // Dados da receita
-}
+} // @name GetAccountsResponse
 
 // GetRevenues é uma função que retorna as receitas
 // @Summary Rota para retornar as receitas

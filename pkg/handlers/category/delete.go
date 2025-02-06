@@ -11,7 +11,7 @@ import (
 // deleteParams é a estrutura que contém os parâmetros da requisição
 type deleteParams struct {
 	Id string `params:"id" example:"678079f6f5080a39a8eedc1e"` // ID da categoria a ser deletada
-}
+} // @name deleteParams
 
 // DeleteCategory é uma função que deleta uma categoria
 // @Summary Rota para deletar uma categoria

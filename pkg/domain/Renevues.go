@@ -14,11 +14,11 @@ type Revenues struct {
 	Method    *Methods           `json:"method,omitempty" bson:"method,omitempty"`                                        // Método de pagamento
 	CreatedAt time.Time          `json:"created_at,omitempty" bson:"created_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de criação da receita
 	UpdatedAt time.Time          `json:"updated_at,omitempty" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"` // Data de atualização da receita
-}
+} // @name Revenues
 
 // RevenueRequest é uma estrutura que representa uma requisição para criar uma receita
 type RevenueRequest struct {
 	Revenue string   `json:"revenue" bson:"revenue" validate:"required" example:"salário"` // Receita
 	Amount  Money    `json:"amount" bson:"amount" validate:"required"`                     // Valor da receita
 	Method  *Methods `json:"method,omitempty" bson:"method,omitempty"`                     // Método de pagamento
-}
+} // @name RevenueRequest

@@ -14,7 +14,7 @@ import (
 // @Description Parâmetros da requisição para atualizar um investimento
 type updateParams struct {
 	Id string `params:"id"` // ID do investimento
-}
+} // @name updateParams
 
 // UpdateInvestment é uma função que atualiza um investimento
 // @Summary Rota para atualizar um investimento

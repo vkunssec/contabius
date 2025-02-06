@@ -2,9 +2,9 @@ package domain
 
 import "math"
 
-type Quantity int64
+type Quantity int64 // @name Quantity
 
-type Currency string
+type Currency string // @name Currency
 
 const (
 	CurrencyBRL Currency = "BRL"
@@ -19,7 +19,7 @@ func (a Quantity) Int64() int64 {
 type Money struct {
 	Quantity Quantity `json:"quantity,omitempty" bson:"quantity,omitempty" example:"1000"`
 	Currency Currency `json:"currency,omitempty" bson:"currency,omitempty" example:"BRL"` // default code BRL
-}
+} // @name Money
 
 func (m Money) Float() float64 {
 	if m.IsZero() {

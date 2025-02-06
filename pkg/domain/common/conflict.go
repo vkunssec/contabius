@@ -7,4 +7,4 @@ type Conflict struct {
 	Success bool `json:"success" example:"false"`
 	// Mensagem descritiva
 	Message string `json:"message" example:"Conflict"`
-}
+} // @name Conflict

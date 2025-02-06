@@ -8,10 +8,10 @@ import (
 )
 
 // InvestmentType é uma enumeração que representa o tipo de investimento
-type InvestmentLiteral string
+type InvestmentLiteral string // @name InvestmentLiteral
 
 // InvestmentId é uma enumeração que representa o ID do investimento
-type InvestmentId int
+type InvestmentId int // @name InvestmentId
 
 const (
 	InvestmentTypeCDIId InvestmentId = iota + 1
@@ -48,7 +48,7 @@ const (
 )
 
 // Recurrence é uma enumeração que representa a recorrência do investimento
-type Recurrence string
+type Recurrence string // @name Recurrence
 
 const (
 	RecurrenceMonthly  Recurrence = "monthly"  // Mensal
@@ -57,12 +57,12 @@ const (
 )
 
 // RecurrenceDay é uma enumeração que representa o dia da recorrência
-type RecurrenceDay int
+type RecurrenceDay int // @name RecurrenceDay
 
 type InvestmentType struct {
 	Id         InvestmentId      `json:"id,omitempty" bson:"_id,omitempty" example:"1"`                  // ID do investimento
 	Investment InvestmentLiteral `json:"investment,omitempty" bson:"investment,omitempty" example:"cdi"` // Tipo de investimento
-}
+} // @name InvestmentType
 
 // Investments são os investimentos que o usuário possui
 type Investments struct {
@@ -75,7 +75,7 @@ type Investments struct {
 	Description   *string            `json:"description,omitempty" bson:"description,omitempty" example:"Investimento em CDB"` // Descrição do investimento
 	CreatedAt     time.Time          `json:"created_at,omitempty" bson:"created_at,omitempty" example:"2025-01-01T00:00:00Z"`  // Data de criação do investimento
 	UpdatedAt     time.Time          `json:"updated_at,omitempty" bson:"updated_at,omitempty" example:"2025-01-01T00:00:00Z"`  // Data de atualização do investimento
-}
+} // @name Investments
 
 // InvestmentRequest é uma estrutura que representa uma requisição para criar um investimento
 type InvestmentRequest struct {
@@ -85,7 +85,7 @@ type InvestmentRequest struct {
 	Recurrence    Recurrence            `json:"recurrence" bson:"recurrence" `                                                    // Recurrence do investimento
 	RecurrenceDay *RecurrenceDay        `json:"recurrence_day" bson:"recurrence_day" `                                            // Dia da recorrência
 	Description   *string               `json:"description,omitempty" bson:"description,omitempty" example:"Investimento em CDB"` // Descrição do investimento
-}
+} // @name InvestmentRequest
 
 // Validate valida os campos do investimento
 func (i *InvestmentType) Validate() error {

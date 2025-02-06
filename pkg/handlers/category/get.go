@@ -12,14 +12,14 @@ import (
 // GetByIdQueryParams é a estrutura que contém os parâmetros da requisição
 type GetByIdQueryParams struct {
 	Ids []string `query:"ids" example:"678079f6f5080a39a8eedc1e"` // Ids das categorias a serem retornadas
-}
+} // @name GetByIdQueryParams
 
 // GetAccountsResponse é a estrutura que contém a resposta da requisição
 type GetCategoriesResponse struct {
 	Success    bool                `json:"success" example:"true"`                              // Sucesso da operação
 	Message    string              `json:"message" example:"Categorias retornadas com sucesso"` // Mensagem de sucesso ou erro
 	Categories []domain.Categories `json:"categories"`                                          // Dados das categorias
-}
+} // @name GetCategoriesResponse
 
 // GetCategory é uma função que retorna todas as categorias
 // @Summary Rota para retornar todas as categorias

@@ -6,6 +6,7 @@ import (
 	"github.com/vkunssec/contabius/pkg/domain/common"
 	"github.com/vkunssec/contabius/pkg/repository"
 	"github.com/vkunssec/contabius/presentation"
+	"github.com/vkunssec/contabius/tools"
 
 	_ "github.com/vkunssec/contabius/docs"
 )
@@ -18,7 +19,7 @@ import (
 // @Produce json
 // @Security ApiKeyAuth
 // @Param Authorization header string true "Token Bearer"
-// @Param request body domain.UserRequest true "Dados do usuário"
+// @Param request body domain.UserLogin true "Dados do usuário"
 // @Success 200 {object} common.Response
 // @Failure 400 {object} common.BadRequest
 // @Router /user/login [post]
@@ -44,9 +45,17 @@ func Login(ctx *fiber.Ctx) error {
 		})
 	}
 
+	token, err := tools.GenerateJWT(&saved)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadGateway).JSON(common.BadRequest{
+			Message: err.Error(),
+			Success: false,
+		})
+	}
+
 	return ctx.Status(fiber.StatusOK).JSON(common.Response{
 		Message: "Usuário logado com sucesso",
 		Success: true,
-		Data:    saved,
+		Data:    token,
 	})
 }

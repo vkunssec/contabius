@@ -69,14 +69,14 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                                "$ref": "#/definitions/Accounts"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -112,7 +112,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.AccountRequest"
+                            "$ref": "#/definitions/AccountRequest"
                         }
                     }
                 ],
@@ -120,13 +120,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -170,19 +170,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -220,7 +220,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                            "$ref": "#/definitions/Accounts"
                         }
                     },
                     {
@@ -235,13 +235,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -291,13 +291,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_handlers_category.GetCategoriesResponse"
+                            "$ref": "#/definitions/GetCategoriesResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                            "$ref": "#/definitions/InternalServerError"
                         }
                     }
                 }
@@ -333,7 +333,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.CategoryRequest"
+                            "$ref": "#/definitions/CategoryRequest"
                         }
                     }
                 ],
@@ -341,19 +341,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                            "$ref": "#/definitions/InternalServerError"
                         }
                     }
                 }
@@ -397,19 +397,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -447,7 +447,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
+                            "$ref": "#/definitions/Categories"
                         }
                     },
                     {
@@ -462,13 +462,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -520,14 +520,14 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs"
+                                "$ref": "#/definitions/Costs"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -563,7 +563,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.CostRequest"
+                            "$ref": "#/definitions/CostRequest"
                         }
                     }
                 ],
@@ -571,13 +571,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -621,19 +621,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -671,7 +671,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs"
+                            "$ref": "#/definitions/Costs"
                         }
                     },
                     {
@@ -686,13 +686,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -730,7 +730,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                            "$ref": "#/definitions/Investments"
                         }
                     },
                     {
@@ -745,13 +745,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -823,14 +823,14 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments"
+                                "$ref": "#/definitions/Investments"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -866,7 +866,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentRequest"
+                            "$ref": "#/definitions/InvestmentRequest"
                         }
                     }
                 ],
@@ -874,13 +874,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -950,13 +950,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_handlers_investment.GetInvestmentsResponse"
+                            "$ref": "#/definitions/GetInvestmentsResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                            "$ref": "#/definitions/InternalServerError"
                         }
                     }
                 }
@@ -1000,19 +1000,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1072,13 +1072,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/pkg_handlers_methods.GetMethodsResponse"
+                            "$ref": "#/definitions/GetMethodsResponse"
                         }
                     },
                     "500": {
                         "description": "Internal Server Error",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError"
+                            "$ref": "#/definitions/InternalServerError"
                         }
                     }
                 }
@@ -1130,14 +1130,14 @@ const docTemplate = `{
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues"
+                                "$ref": "#/definitions/Revenues"
                             }
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1173,7 +1173,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.RevenueRequest"
+                            "$ref": "#/definitions/RevenueRequest"
                         }
                     }
                 ],
@@ -1181,13 +1181,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1231,19 +1231,19 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     },
                     "404": {
                         "description": "Not Found",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1281,7 +1281,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues"
+                            "$ref": "#/definitions/Revenues"
                         }
                     },
                     {
@@ -1296,13 +1296,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1340,7 +1340,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest"
+                            "$ref": "#/definitions/UserLogin"
                         }
                     }
                 ],
@@ -1348,13 +1348,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1391,13 +1391,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1435,7 +1435,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest"
+                            "$ref": "#/definitions/UserRequest"
                         }
                     }
                 ],
@@ -1443,13 +1443,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1487,7 +1487,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword"
+                            "$ref": "#/definitions/UserUpdatePassword"
                         }
                     }
                 ],
@@ -1495,13 +1495,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1539,7 +1539,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest"
+                            "$ref": "#/definitions/UserUpdateRequest"
                         }
                     },
                     {
@@ -1554,13 +1554,13 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response"
+                            "$ref": "#/definitions/Response"
                         }
                     },
                     "400": {
                         "description": "Bad Request",
                         "schema": {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest"
+                            "$ref": "#/definitions/BadRequest"
                         }
                     }
                 }
@@ -1568,7 +1568,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_com_vkunssec_contabius_pkg_domain.AccountRequest": {
+        "AccountRequest": {
             "type": "object",
             "required": [
                 "account",
@@ -1587,7 +1587,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Accounts": {
+        "Accounts": {
             "type": "object",
             "properties": {
                 "account": {
@@ -1617,7 +1617,23 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Categories": {
+        "BadRequest": {
+            "description": "Estrutura padrão de resposta de erro de requisição",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "description": "Mensagem descritiva",
+                    "type": "string",
+                    "example": "Erro ao processar a requisição"
+                },
+                "success": {
+                    "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "Categories": {
             "type": "object",
             "properties": {
                 "category": {
@@ -1647,7 +1663,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.CategoryRequest": {
+        "CategoryRequest": {
             "type": "object",
             "required": [
                 "category"
@@ -1665,7 +1681,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.CostRequest": {
+        "CostRequest": {
             "type": "object",
             "required": [
                 "amount",
@@ -1677,7 +1693,7 @@ const docTemplate = `{
                     "description": "Valor do custo",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                            "$ref": "#/definitions/Money"
                         }
                     ]
                 },
@@ -1685,7 +1701,7 @@ const docTemplate = `{
                     "description": "ID da categoria",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest"
+                            "$ref": "#/definitions/PartialCategoryRequest"
                         }
                     ]
                 },
@@ -1703,20 +1719,20 @@ const docTemplate = `{
                     "description": "Método de pagamento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                            "$ref": "#/definitions/Methods"
                         }
                     ]
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Costs": {
+        "Costs": {
             "type": "object",
             "properties": {
                 "amount": {
                     "description": "Valor do custo",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                            "$ref": "#/definitions/Money"
                         }
                     ]
                 },
@@ -1724,7 +1740,7 @@ const docTemplate = `{
                     "description": "Categoria do custo",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
+                            "$ref": "#/definitions/Categories"
                         }
                     ]
                 },
@@ -1752,7 +1768,7 @@ const docTemplate = `{
                     "description": "Método de pagamento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                            "$ref": "#/definitions/Methods"
                         }
                     ]
                 },
@@ -1763,7 +1779,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Currency": {
+        "Currency": {
             "type": "string",
             "enum": [
                 "BRL",
@@ -1776,7 +1792,89 @@ const docTemplate = `{
                 "CurrencyEUR"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.InvestmentId": {
+        "GetCategoriesResponse": {
+            "type": "object",
+            "properties": {
+                "categories": {
+                    "description": "Dados das categorias",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Categories"
+                    }
+                },
+                "message": {
+                    "description": "Mensagem de sucesso ou erro",
+                    "type": "string",
+                    "example": "Categorias retornadas com sucesso"
+                },
+                "success": {
+                    "description": "Sucesso da operação",
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "GetInvestmentsResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "description": "Mensagem de sucesso ou erro",
+                    "type": "string",
+                    "example": "Investimentos retornados com sucesso"
+                },
+                "success": {
+                    "description": "Sucesso da operação",
+                    "type": "boolean",
+                    "example": true
+                },
+                "types": {
+                    "description": "Dados dos investimentos",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InvestmentType"
+                    }
+                }
+            }
+        },
+        "GetMethodsResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "description": "Mensagem de sucesso ou erro",
+                    "type": "string",
+                    "example": "Métodos retornados com sucesso"
+                },
+                "methods": {
+                    "description": "Dados dos métodos",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Methods"
+                    }
+                },
+                "success": {
+                    "description": "Sucesso da operação",
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "InternalServerError": {
+            "description": "Estrutura padrão de resposta de erro de servidor interno",
+            "type": "object",
+            "properties": {
+                "message": {
+                    "description": "Mensagem descritiva",
+                    "type": "string",
+                    "example": "Internal Server Error"
+                },
+                "success": {
+                    "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "InvestmentId": {
             "type": "integer",
             "enum": [
                 1,
@@ -1813,7 +1911,7 @@ const docTemplate = `{
                 "InvestmentTypeOtherId"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral": {
+        "InvestmentLiteral": {
             "type": "string",
             "enum": [
                 "cdi",
@@ -1867,7 +1965,7 @@ const docTemplate = `{
                 "InvestmentTypeOther"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.InvestmentRequest": {
+        "InvestmentRequest": {
             "type": "object",
             "required": [
                 "account",
@@ -1879,7 +1977,7 @@ const docTemplate = `{
                     "description": "Conta do usuário",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest"
+                            "$ref": "#/definitions/PartialAccountRequest"
                         }
                     ]
                 },
@@ -1887,7 +1985,7 @@ const docTemplate = `{
                     "description": "Valor do investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                            "$ref": "#/definitions/Money"
                         }
                     ]
                 },
@@ -1900,7 +1998,7 @@ const docTemplate = `{
                     "description": "Tipo de investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
+                            "$ref": "#/definitions/InvestmentType"
                         }
                     ]
                 },
@@ -1908,7 +2006,7 @@ const docTemplate = `{
                     "description": "Recurrence do investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence"
+                            "$ref": "#/definitions/Recurrence"
                         }
                     ]
                 },
@@ -1918,14 +2016,14 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.InvestmentType": {
+        "InvestmentType": {
             "type": "object",
             "properties": {
                 "id": {
                     "description": "ID do investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId"
+                            "$ref": "#/definitions/InvestmentId"
                         }
                     ],
                     "example": 1
@@ -1934,21 +2032,21 @@ const docTemplate = `{
                     "description": "Tipo de investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral"
+                            "$ref": "#/definitions/InvestmentLiteral"
                         }
                     ],
                     "example": "cdi"
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Investments": {
+        "Investments": {
             "type": "object",
             "properties": {
                 "account": {
                     "description": "Conta do usuário",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts"
+                            "$ref": "#/definitions/Accounts"
                         }
                     ]
                 },
@@ -1956,7 +2054,7 @@ const docTemplate = `{
                     "description": "Valor do investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                            "$ref": "#/definitions/Money"
                         }
                     ]
                 },
@@ -1979,7 +2077,7 @@ const docTemplate = `{
                     "description": "Tipo de investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
+                            "$ref": "#/definitions/InvestmentType"
                         }
                     ]
                 },
@@ -1987,7 +2085,7 @@ const docTemplate = `{
                     "description": "Recurrence do investimento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence"
+                            "$ref": "#/definitions/Recurrence"
                         }
                     ],
                     "example": "monthly"
@@ -2004,7 +2102,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Method": {
+        "Method": {
             "type": "string",
             "enum": [
                 "credit",
@@ -2021,7 +2119,7 @@ const docTemplate = `{
                 "MethodCash"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.MethodId": {
+        "MethodId": {
             "type": "integer",
             "enum": [
                 0,
@@ -2038,14 +2136,14 @@ const docTemplate = `{
                 "MethodCashId"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.Methods": {
+        "Methods": {
             "type": "object",
             "properties": {
                 "id": {
                     "description": "ID do método de pagamento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.MethodId"
+                            "$ref": "#/definitions/MethodId"
                         }
                     ],
                     "example": 1
@@ -2054,21 +2152,21 @@ const docTemplate = `{
                     "description": "Método de pagamento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Method"
+                            "$ref": "#/definitions/Method"
                         }
                     ],
                     "example": "credit"
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Money": {
+        "Money": {
             "type": "object",
             "properties": {
                 "currency": {
                     "description": "default code BRL",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Currency"
+                            "$ref": "#/definitions/Currency"
                         }
                     ],
                     "example": "BRL"
@@ -2079,7 +2177,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest": {
+        "PartialAccountRequest": {
             "type": "object",
             "required": [
                 "account",
@@ -2104,7 +2202,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest": {
+        "PartialCategoryRequest": {
             "type": "object",
             "required": [
                 "category",
@@ -2123,7 +2221,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Recurrence": {
+        "Recurrence": {
             "type": "string",
             "enum": [
                 "monthly",
@@ -2141,7 +2239,26 @@ const docTemplate = `{
                 "RecurrenceSporadic"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.RevenueRequest": {
+        "Response": {
+            "description": "Estrutura padrão de resposta",
+            "type": "object",
+            "properties": {
+                "data": {
+                    "description": "Dados da resposta"
+                },
+                "message": {
+                    "description": "Mensagem descritiva",
+                    "type": "string",
+                    "example": "Operação realizada com sucesso"
+                },
+                "success": {
+                    "description": "Indica se a operação foi bem sucedida",
+                    "type": "boolean",
+                    "example": true
+                }
+            }
+        },
+        "RevenueRequest": {
             "type": "object",
             "required": [
                 "amount",
@@ -2152,7 +2269,7 @@ const docTemplate = `{
                     "description": "Valor da receita",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                            "$ref": "#/definitions/Money"
                         }
                     ]
                 },
@@ -2160,7 +2277,7 @@ const docTemplate = `{
                     "description": "Método de pagamento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                            "$ref": "#/definitions/Methods"
                         }
                     ]
                 },
@@ -2171,14 +2288,14 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.Revenues": {
+        "Revenues": {
             "type": "object",
             "properties": {
                 "amount": {
                     "description": "Valor da receita",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Money"
+                            "$ref": "#/definitions/Money"
                         }
                     ]
                 },
@@ -2196,7 +2313,7 @@ const docTemplate = `{
                     "description": "Método de pagamento",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
+                            "$ref": "#/definitions/Methods"
                         }
                     ]
                 },
@@ -2212,7 +2329,26 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.UserRequest": {
+        "UserLogin": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "description": "Email do usuário",
+                    "type": "string",
+                    "example": "user@example.com"
+                },
+                "password": {
+                    "description": "Senha do usuário",
+                    "type": "string",
+                    "example": "password123"
+                }
+            }
+        },
+        "UserRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -2240,25 +2376,27 @@ const docTemplate = `{
                     "description": "Tipo de usuário",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType"
+                            "$ref": "#/definitions/UserType"
                         }
                     ],
                     "example": "admin"
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.UserType": {
+        "UserType": {
             "type": "string",
             "enum": [
                 "admin",
-                "user"
+                "user",
+                "guest"
             ],
             "x-enum-varnames": [
                 "UserTypeAdmin",
-                "UserTypeUser"
+                "UserTypeUser",
+                "UserTypeGuest"
             ]
         },
-        "github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword": {
+        "UserUpdatePassword": {
             "type": "object",
             "required": [
                 "password",
@@ -2277,7 +2415,7 @@ const docTemplate = `{
                 }
             }
         },
-        "github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest": {
+        "UserUpdateRequest": {
             "type": "object",
             "required": [
                 "email",
@@ -2298,127 +2436,10 @@ const docTemplate = `{
                     "description": "Tipo de usuário",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType"
+                            "$ref": "#/definitions/UserType"
                         }
                     ],
                     "example": "admin"
-                }
-            }
-        },
-        "github_com_vkunssec_contabius_pkg_domain_common.BadRequest": {
-            "description": "Estrutura padrão de resposta de erro de requisição",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "description": "Mensagem descritiva",
-                    "type": "string",
-                    "example": "Erro ao processar a requisição"
-                },
-                "success": {
-                    "description": "Indica se a operação foi bem sucedida",
-                    "type": "boolean",
-                    "example": false
-                }
-            }
-        },
-        "github_com_vkunssec_contabius_pkg_domain_common.InternalServerError": {
-            "description": "Estrutura padrão de resposta de erro de servidor interno",
-            "type": "object",
-            "properties": {
-                "message": {
-                    "description": "Mensagem descritiva",
-                    "type": "string",
-                    "example": "Internal Server Error"
-                },
-                "success": {
-                    "description": "Indica se a operação foi bem sucedida",
-                    "type": "boolean",
-                    "example": false
-                }
-            }
-        },
-        "github_com_vkunssec_contabius_pkg_domain_common.Response": {
-            "description": "Estrutura padrão de resposta",
-            "type": "object",
-            "properties": {
-                "data": {
-                    "description": "Dados da resposta"
-                },
-                "message": {
-                    "description": "Mensagem descritiva",
-                    "type": "string",
-                    "example": "Operação realizada com sucesso"
-                },
-                "success": {
-                    "description": "Indica se a operação foi bem sucedida",
-                    "type": "boolean",
-                    "example": true
-                }
-            }
-        },
-        "pkg_handlers_category.GetCategoriesResponse": {
-            "type": "object",
-            "properties": {
-                "categories": {
-                    "description": "Dados das categorias",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories"
-                    }
-                },
-                "message": {
-                    "description": "Mensagem de sucesso ou erro",
-                    "type": "string",
-                    "example": "Categorias retornadas com sucesso"
-                },
-                "success": {
-                    "description": "Sucesso da operação",
-                    "type": "boolean",
-                    "example": true
-                }
-            }
-        },
-        "pkg_handlers_investment.GetInvestmentsResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "description": "Mensagem de sucesso ou erro",
-                    "type": "string",
-                    "example": "Investimentos retornados com sucesso"
-                },
-                "success": {
-                    "description": "Sucesso da operação",
-                    "type": "boolean",
-                    "example": true
-                },
-                "types": {
-                    "description": "Dados dos investimentos",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType"
-                    }
-                }
-            }
-        },
-        "pkg_handlers_methods.GetMethodsResponse": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "description": "Mensagem de sucesso ou erro",
-                    "type": "string",
-                    "example": "Métodos retornados com sucesso"
-                },
-                "methods": {
-                    "description": "Dados dos métodos",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods"
-                    }
-                },
-                "success": {
-                    "description": "Sucesso da operação",
-                    "type": "boolean",
-                    "example": true
                 }
             }
         }

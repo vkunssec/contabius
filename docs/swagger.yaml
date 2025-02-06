@@ -1,6 +1,6 @@
 basePath: /
 definitions:
-  github_com_vkunssec_contabius_pkg_domain.AccountRequest:
+  AccountRequest:
     properties:
       account:
         description: Nome da conta
@@ -14,7 +14,7 @@ definitions:
     - account
     - color
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Accounts:
+  Accounts:
     properties:
       account:
         description: Nome da conta
@@ -37,7 +37,19 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Categories:
+  BadRequest:
+    description: Estrutura padrão de resposta de erro de requisição
+    properties:
+      message:
+        description: Mensagem descritiva
+        example: Erro ao processar a requisição
+        type: string
+      success:
+        description: Indica se a operação foi bem sucedida
+        example: false
+        type: boolean
+    type: object
+  Categories:
     properties:
       category:
         description: Nome da categoria
@@ -60,7 +72,7 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
-  github_com_vkunssec_contabius_pkg_domain.CategoryRequest:
+  CategoryRequest:
     properties:
       category:
         description: Nome da categoria
@@ -73,15 +85,15 @@ definitions:
     required:
     - category
     type: object
-  github_com_vkunssec_contabius_pkg_domain.CostRequest:
+  CostRequest:
     properties:
       amount:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        - $ref: '#/definitions/Money'
         description: Valor do custo
       category:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest'
+        - $ref: '#/definitions/PartialCategoryRequest'
         description: ID da categoria
       cost:
         description: Descrição do custo
@@ -93,22 +105,22 @@ definitions:
         type: integer
       methods:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        - $ref: '#/definitions/Methods'
         description: Método de pagamento
     required:
     - amount
     - category
     - cost
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Costs:
+  Costs:
     properties:
       amount:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        - $ref: '#/definitions/Money'
         description: Valor do custo
       category:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+        - $ref: '#/definitions/Categories'
         description: Categoria do custo
       cost:
         description: Descrição do custo
@@ -128,14 +140,14 @@ definitions:
         type: integer
       methods:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
+        - $ref: '#/definitions/Methods'
         description: Método de pagamento
       updated_at:
         description: Data de atualização do custo
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Currency:
+  Currency:
     enum:
     - BRL
     - USD
@@ -145,7 +157,67 @@ definitions:
     - CurrencyBRL
     - CurrencyUSD
     - CurrencyEUR
-  github_com_vkunssec_contabius_pkg_domain.InvestmentId:
+  GetCategoriesResponse:
+    properties:
+      categories:
+        description: Dados das categorias
+        items:
+          $ref: '#/definitions/Categories'
+        type: array
+      message:
+        description: Mensagem de sucesso ou erro
+        example: Categorias retornadas com sucesso
+        type: string
+      success:
+        description: Sucesso da operação
+        example: true
+        type: boolean
+    type: object
+  GetInvestmentsResponse:
+    properties:
+      message:
+        description: Mensagem de sucesso ou erro
+        example: Investimentos retornados com sucesso
+        type: string
+      success:
+        description: Sucesso da operação
+        example: true
+        type: boolean
+      types:
+        description: Dados dos investimentos
+        items:
+          $ref: '#/definitions/InvestmentType'
+        type: array
+    type: object
+  GetMethodsResponse:
+    properties:
+      message:
+        description: Mensagem de sucesso ou erro
+        example: Métodos retornados com sucesso
+        type: string
+      methods:
+        description: Dados dos métodos
+        items:
+          $ref: '#/definitions/Methods'
+        type: array
+      success:
+        description: Sucesso da operação
+        example: true
+        type: boolean
+    type: object
+  InternalServerError:
+    description: Estrutura padrão de resposta de erro de servidor interno
+    properties:
+      message:
+        description: Mensagem descritiva
+        example: Internal Server Error
+        type: string
+      success:
+        description: Indica se a operação foi bem sucedida
+        example: false
+        type: boolean
+    type: object
+  InvestmentId:
     enum:
     - 1
     - 2
@@ -179,7 +251,7 @@ definitions:
     - InvestmentTypeBDRId
     - InvestmentTypeCOEId
     - InvestmentTypeOtherId
-  github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral:
+  InvestmentLiteral:
     enum:
     - cdi
     - cdb
@@ -229,15 +301,15 @@ definitions:
     - InvestmentTypeBDR
     - InvestmentTypeCOE
     - InvestmentTypeOther
-  github_com_vkunssec_contabius_pkg_domain.InvestmentRequest:
+  InvestmentRequest:
     properties:
       account:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest'
+        - $ref: '#/definitions/PartialAccountRequest'
         description: Conta do usuário
       amount:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        - $ref: '#/definitions/Money'
         description: Valor do investimento
       description:
         description: Descrição do investimento
@@ -245,11 +317,11 @@ definitions:
         type: string
       investment_type:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
+        - $ref: '#/definitions/InvestmentType'
         description: Tipo de investimento
       recurrence:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence'
+        - $ref: '#/definitions/Recurrence'
         description: Recurrence do investimento
       recurrence_day:
         description: Dia da recorrência
@@ -259,28 +331,28 @@ definitions:
     - amount
     - investment_type
     type: object
-  github_com_vkunssec_contabius_pkg_domain.InvestmentType:
+  InvestmentType:
     properties:
       id:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentId'
+        - $ref: '#/definitions/InvestmentId'
         description: ID do investimento
         example: 1
       investment:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentLiteral'
+        - $ref: '#/definitions/InvestmentLiteral'
         description: Tipo de investimento
         example: cdi
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Investments:
+  Investments:
     properties:
       account:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+        - $ref: '#/definitions/Accounts'
         description: Conta do usuário
       amount:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
+        - $ref: '#/definitions/Money'
         description: Valor do investimento
       created_at:
         description: Data de criação do investimento
@@ -296,11 +368,11 @@ definitions:
         type: string
       investment_type:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
+        - $ref: '#/definitions/InvestmentType'
         description: Tipo de investimento
       recurrence:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Recurrence'
+        - $ref: '#/definitions/Recurrence'
         description: Recurrence do investimento
         example: monthly
       recurrence_day:
@@ -312,7 +384,7 @@ definitions:
         example: "2025-01-01T00:00:00Z"
         type: string
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Method:
+  Method:
     enum:
     - credit
     - debit
@@ -326,7 +398,7 @@ definitions:
     - MethodPix
     - MethodBoleto
     - MethodCash
-  github_com_vkunssec_contabius_pkg_domain.MethodId:
+  MethodId:
     enum:
     - 0
     - 1
@@ -340,31 +412,31 @@ definitions:
     - MethodPixId
     - MethodBoletoId
     - MethodCashId
-  github_com_vkunssec_contabius_pkg_domain.Methods:
+  Methods:
     properties:
       id:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.MethodId'
+        - $ref: '#/definitions/MethodId'
         description: ID do método de pagamento
         example: 1
       method:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Method'
+        - $ref: '#/definitions/Method'
         description: Método de pagamento
         example: credit
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Money:
+  Money:
     properties:
       currency:
         allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Currency'
+        - $ref: '#/definitions/Currency'
         description: default code BRL
         example: BRL
       quantity:
         example: 1000
         type: integer
     type: object
-  github_com_vkunssec_contabius_pkg_domain.PartialAccountRequest:
+  PartialAccountRequest:
     properties:
       account:
         description: Nome da conta
@@ -383,7 +455,7 @@ definitions:
     - color
     - id
     type: object
-  github_com_vkunssec_contabius_pkg_domain.PartialCategoryRequest:
+  PartialCategoryRequest:
     properties:
       category:
         description: Nome da categoria
@@ -397,7 +469,7 @@ definitions:
     - category
     - id
     type: object
-  github_com_vkunssec_contabius_pkg_domain.Recurrence:
+  Recurrence:
     enum:
     - monthly
     - yearly
@@ -411,142 +483,7 @@ definitions:
     - RecurrenceMonthly
     - RecurrenceYearly
     - RecurrenceSporadic
-  github_com_vkunssec_contabius_pkg_domain.RevenueRequest:
-    properties:
-      amount:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
-        description: Valor da receita
-      method:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
-        description: Método de pagamento
-      revenue:
-        description: Receita
-        example: salário
-        type: string
-    required:
-    - amount
-    - revenue
-    type: object
-  github_com_vkunssec_contabius_pkg_domain.Revenues:
-    properties:
-      amount:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Money'
-        description: Valor da receita
-      created_at:
-        description: Data de criação da receita
-        example: "2025-01-01T00:00:00Z"
-        type: string
-      id:
-        description: ID da receita
-        example: 678079f6f5080a39a8eedc1e
-        type: string
-      method:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
-        description: Método de pagamento
-      revenue:
-        description: Receita
-        example: salário
-        type: string
-      updated_at:
-        description: Data de atualização da receita
-        example: "2025-01-01T00:00:00Z"
-        type: string
-    type: object
-  github_com_vkunssec_contabius_pkg_domain.UserRequest:
-    properties:
-      email:
-        description: Email do usuário
-        example: user@example.com
-        type: string
-      name:
-        description: Nome do usuário
-        example: John Doe
-        type: string
-      password:
-        description: Senha do usuário
-        example: password123
-        type: string
-      type:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType'
-        description: Tipo de usuário
-        example: admin
-    required:
-    - email
-    - name
-    - password
-    - type
-    type: object
-  github_com_vkunssec_contabius_pkg_domain.UserType:
-    enum:
-    - admin
-    - user
-    type: string
-    x-enum-varnames:
-    - UserTypeAdmin
-    - UserTypeUser
-  github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword:
-    properties:
-      password:
-        description: Senha do usuário
-        example: password123
-        type: string
-      password_confirm:
-        description: Senha do usuário
-        example: password123
-        type: string
-    required:
-    - password
-    - password_confirm
-    type: object
-  github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest:
-    properties:
-      email:
-        description: Email do usuário
-        example: user@example.com
-        type: string
-      name:
-        description: Nome do usuário
-        example: John Doe
-        type: string
-      type:
-        allOf:
-        - $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserType'
-        description: Tipo de usuário
-        example: admin
-    required:
-    - email
-    - name
-    type: object
-  github_com_vkunssec_contabius_pkg_domain_common.BadRequest:
-    description: Estrutura padrão de resposta de erro de requisição
-    properties:
-      message:
-        description: Mensagem descritiva
-        example: Erro ao processar a requisição
-        type: string
-      success:
-        description: Indica se a operação foi bem sucedida
-        example: false
-        type: boolean
-    type: object
-  github_com_vkunssec_contabius_pkg_domain_common.InternalServerError:
-    description: Estrutura padrão de resposta de erro de servidor interno
-    properties:
-      message:
-        description: Mensagem descritiva
-        example: Internal Server Error
-        type: string
-      success:
-        description: Indica se a operação foi bem sucedida
-        example: false
-        type: boolean
-    type: object
-  github_com_vkunssec_contabius_pkg_domain_common.Response:
+  Response:
     description: Estrutura padrão de resposta
     properties:
       data:
@@ -560,53 +497,132 @@ definitions:
         example: true
         type: boolean
     type: object
-  pkg_handlers_category.GetCategoriesResponse:
+  RevenueRequest:
     properties:
-      categories:
-        description: Dados das categorias
-        items:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
-        type: array
-      message:
-        description: Mensagem de sucesso ou erro
-        example: Categorias retornadas com sucesso
+      amount:
+        allOf:
+        - $ref: '#/definitions/Money'
+        description: Valor da receita
+      method:
+        allOf:
+        - $ref: '#/definitions/Methods'
+        description: Método de pagamento
+      revenue:
+        description: Receita
+        example: salário
         type: string
-      success:
-        description: Sucesso da operação
-        example: true
-        type: boolean
+    required:
+    - amount
+    - revenue
     type: object
-  pkg_handlers_investment.GetInvestmentsResponse:
+  Revenues:
     properties:
-      message:
-        description: Mensagem de sucesso ou erro
-        example: Investimentos retornados com sucesso
+      amount:
+        allOf:
+        - $ref: '#/definitions/Money'
+        description: Valor da receita
+      created_at:
+        description: Data de criação da receita
+        example: "2025-01-01T00:00:00Z"
         type: string
-      success:
-        description: Sucesso da operação
-        example: true
-        type: boolean
-      types:
-        description: Dados dos investimentos
-        items:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentType'
-        type: array
+      id:
+        description: ID da receita
+        example: 678079f6f5080a39a8eedc1e
+        type: string
+      method:
+        allOf:
+        - $ref: '#/definitions/Methods'
+        description: Método de pagamento
+      revenue:
+        description: Receita
+        example: salário
+        type: string
+      updated_at:
+        description: Data de atualização da receita
+        example: "2025-01-01T00:00:00Z"
+        type: string
     type: object
-  pkg_handlers_methods.GetMethodsResponse:
+  UserLogin:
     properties:
-      message:
-        description: Mensagem de sucesso ou erro
-        example: Métodos retornados com sucesso
+      email:
+        description: Email do usuário
+        example: user@example.com
         type: string
-      methods:
-        description: Dados dos métodos
-        items:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Methods'
-        type: array
-      success:
-        description: Sucesso da operação
-        example: true
-        type: boolean
+      password:
+        description: Senha do usuário
+        example: password123
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  UserRequest:
+    properties:
+      email:
+        description: Email do usuário
+        example: user@example.com
+        type: string
+      name:
+        description: Nome do usuário
+        example: John Doe
+        type: string
+      password:
+        description: Senha do usuário
+        example: password123
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/UserType'
+        description: Tipo de usuário
+        example: admin
+    required:
+    - email
+    - name
+    - password
+    - type
+    type: object
+  UserType:
+    enum:
+    - admin
+    - user
+    - guest
+    type: string
+    x-enum-varnames:
+    - UserTypeAdmin
+    - UserTypeUser
+    - UserTypeGuest
+  UserUpdatePassword:
+    properties:
+      password:
+        description: Senha do usuário
+        example: password123
+        type: string
+      password_confirm:
+        description: Senha do usuário
+        example: password123
+        type: string
+    required:
+    - password
+    - password_confirm
+    type: object
+  UserUpdateRequest:
+    properties:
+      email:
+        description: Email do usuário
+        example: user@example.com
+        type: string
+      name:
+        description: Nome do usuário
+        example: John Doe
+        type: string
+      type:
+        allOf:
+        - $ref: '#/definitions/UserType'
+        description: Tipo de usuário
+        example: admin
+    required:
+    - email
+    - name
     type: object
 host: ${HOST}
 info:
@@ -648,12 +664,12 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+              $ref: '#/definitions/Accounts'
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar as contas bancárias
@@ -674,18 +690,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.AccountRequest'
+          $ref: '#/definitions/AccountRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para criar uma conta bancária
@@ -713,15 +729,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar uma conta bancária
@@ -743,7 +759,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Accounts'
+          $ref: '#/definitions/Accounts'
       - description: ID da conta bancária
         in: path
         name: id
@@ -755,11 +771,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar uma conta bancária
@@ -791,11 +807,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/pkg_handlers_category.GetCategoriesResponse'
+            $ref: '#/definitions/GetCategoriesResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+            $ref: '#/definitions/InternalServerError'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar todas as categorias
@@ -816,22 +832,22 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.CategoryRequest'
+          $ref: '#/definitions/CategoryRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+            $ref: '#/definitions/InternalServerError'
       security:
       - ApiKeyAuth: []
       summary: Rota para criar uma categoria
@@ -859,15 +875,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar uma categoria
@@ -889,7 +905,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Categories'
+          $ref: '#/definitions/Categories'
       - description: ID da categoria
         in: path
         name: id
@@ -901,11 +917,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar uma categoria
@@ -938,12 +954,12 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs'
+              $ref: '#/definitions/Costs'
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar os custos
@@ -964,18 +980,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.CostRequest'
+          $ref: '#/definitions/CostRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para criar um custo
@@ -1003,15 +1019,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar um custo
@@ -1033,7 +1049,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Costs'
+          $ref: '#/definitions/Costs'
       - description: ID do custo
         in: path
         name: id
@@ -1045,11 +1061,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar um custo
@@ -1071,7 +1087,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments'
+          $ref: '#/definitions/Investments'
       - description: ID do investimento
         in: path
         name: id
@@ -1083,11 +1099,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar um investimento
@@ -1139,12 +1155,12 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Investments'
+              $ref: '#/definitions/Investments'
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar os investimentos
@@ -1165,18 +1181,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.InvestmentRequest'
+          $ref: '#/definitions/InvestmentRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para criar um investimento
@@ -1227,11 +1243,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/pkg_handlers_investment.GetInvestmentsResponse'
+            $ref: '#/definitions/GetInvestmentsResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+            $ref: '#/definitions/InternalServerError'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar todos os tipos de investimentos
@@ -1259,15 +1275,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar um investimento
@@ -1308,11 +1324,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/pkg_handlers_methods.GetMethodsResponse'
+            $ref: '#/definitions/GetMethodsResponse'
         "500":
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.InternalServerError'
+            $ref: '#/definitions/InternalServerError'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar todos os métodos
@@ -1345,12 +1361,12 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues'
+              $ref: '#/definitions/Revenues'
             type: array
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar as receitas
@@ -1371,18 +1387,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.RevenueRequest'
+          $ref: '#/definitions/RevenueRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para criar uma receita
@@ -1410,15 +1426,15 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
         "404":
           description: Not Found
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para deletar uma receita
@@ -1440,7 +1456,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.Revenues'
+          $ref: '#/definitions/Revenues'
       - description: ID da receita
         in: path
         name: id
@@ -1452,11 +1468,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar uma receita
@@ -1478,18 +1494,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest'
+          $ref: '#/definitions/UserLogin'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para logar um usuário
@@ -1512,11 +1528,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para retornar o usuário logado
@@ -1538,18 +1554,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserRequest'
+          $ref: '#/definitions/UserRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para criar um usuário
@@ -1571,7 +1587,7 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdateRequest'
+          $ref: '#/definitions/UserUpdateRequest'
       - description: ID do usuário
         in: path
         name: id
@@ -1583,11 +1599,11 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar um usuário
@@ -1609,18 +1625,18 @@ paths:
         name: request
         required: true
         schema:
-          $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain.UserUpdatePassword'
+          $ref: '#/definitions/UserUpdatePassword'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.Response'
+            $ref: '#/definitions/Response'
         "400":
           description: Bad Request
           schema:
-            $ref: '#/definitions/github_com_vkunssec_contabius_pkg_domain_common.BadRequest'
+            $ref: '#/definitions/BadRequest'
       security:
       - ApiKeyAuth: []
       summary: Rota para atualizar a senha de um usuário

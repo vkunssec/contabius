@@ -11,7 +11,7 @@ import (
 // deleteParams é a estrutura que contém os parâmetros da requisição
 type deleteParams struct {
 	Id string `params:"id" example:"678079f6f5080a39a8eedc1e"` // ID da receita a ser deletada
-}
+} // @name deleteParams
 
 // DeleteRevenues é uma função que deleta uma receita
 // @Summary Rota para deletar uma receita

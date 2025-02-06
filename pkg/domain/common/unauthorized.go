@@ -7,4 +7,4 @@ type Unauthorized struct {
 	Success bool `json:"success" example:"false"`
 	// Mensagem descritiva
 	Message string `json:"message" example:"Invalid or expired JWT"`
-}
+} // @name Unauthorized

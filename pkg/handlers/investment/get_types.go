@@ -12,14 +12,14 @@ import (
 // GetByIdQueryParams é a estrutura que contém os parâmetros da requisição
 type GetByIdQueryParams struct {
 	Ids []domain.InvestmentId `query:"ids" example:"0,1,2,3"` // Ids dos investimentos a serem retornados
-}
+} // @name GetByIdQueryParams
 
 // GetMethodsResponse é a estrutura que contém a resposta da requisição
 type GetInvestmentsResponse struct {
 	Success bool                    `json:"success" example:"true"`                                 // Sucesso da operação
 	Message string                  `json:"message" example:"Investimentos retornados com sucesso"` // Mensagem de sucesso ou erro
 	Types   []domain.InvestmentType `json:"types"`                                                  // Dados dos investimentos
-}
+} // @name GetInvestmentsResponse
 
 // GetTypesInvestments é uma função que retorna todos os tipos de investimentos
 // @Summary Rota para retornar todos os tipos de investimentos

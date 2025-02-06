@@ -13,14 +13,14 @@ import (
 // GetByIdQueryParams é a estrutura que contém os parâmetros da requisição
 type GetByIdQueryParams struct {
 	Ids []string `query:"ids" example:"678079f6f5080a39a8eedc1e"` // Ids das contas bancárias a serem retornadas
-}
+} // @name GetByIdQueryParams
 
 // GetAccountsResponse é a estrutura que contém a resposta da requisição
 type GetAccountsResponse struct {
 	Success  bool              `json:"success" example:"true"`                                 // Sucesso da operação
 	Message  string            `json:"message" example:"Conta bancária retornada com sucesso"` // Mensagem de sucesso ou erro
 	Accounts []domain.Accounts `json:"accounts"`                                               // Dados da conta bancária
-}
+} // @name GetAccountsResponse
 
 // GetBankAccount é uma função que retorna as contas bancárias
 // @Summary Rota para retornar as contas bancárias

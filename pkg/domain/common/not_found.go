@@ -6,4 +6,4 @@ type NotFound struct {
 	// Mensagem de erro
 	Message string `json:"message" example:"Resource not found"`
 	Success bool   `json:"success" example:"false"`
-}
+} // @name NotFound

@@ -12,14 +12,14 @@ import (
 // GetByIdQueryParams é a estrutura que contém os parâmetros da requisição
 type GetByIdQueryParams struct {
 	Ids []domain.MethodId `query:"ids" example:"0,1,2,3"` // Ids dos métodos a serem retornados
-}
+} // @name GetByIdQueryParams
 
 // GetMethodsResponse é a estrutura que contém a resposta da requisição
 type GetMethodsResponse struct {
 	Success bool             `json:"success" example:"true"`                           // Sucesso da operação
 	Message string           `json:"message" example:"Métodos retornados com sucesso"` // Mensagem de sucesso ou erro
 	Methods []domain.Methods `json:"methods"`                                          // Dados dos métodos
-}
+} // @name GetMethodsResponse
 
 // GetMethods é uma função que retorna todos os métodos
 // @Summary Rota para retornar todos os métodos

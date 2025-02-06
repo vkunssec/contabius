@@ -14,7 +14,7 @@ import (
 // @Description Parâmetros da requisição para atualizar um custo
 type updateParams struct {
 	Id string `params:"id"` // ID do custo
-}
+} // @name updateParams
 
 // UpdateCosts é uma função que atualiza um custo
 // @Summary Rota para atualizar um custo

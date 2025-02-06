@@ -5,10 +5,10 @@ import (
 )
 
 // Method é uma enumeração que representa o método de pagamento
-type Method string
+type Method string // @name Method
 
 // MethodId é uma enumeração que representa o ID do método de pagamento
-type MethodId int
+type MethodId int // @name MethodId
 
 const (
 	MethodCreditId MethodId = iota
@@ -28,7 +28,7 @@ const (
 type Methods struct {
 	MethodId MethodId `json:"id" example:"1"`          // ID do método de pagamento
 	Method   Method   `json:"method" example:"credit"` // Método de pagamento
-}
+} // @name Methods
 
 // Validate valida o método de pagamento
 func (m *Methods) Validate() error {

@@ -14,7 +14,7 @@ import (
 // @Description Parâmetros da requisição para atualizar uma receita
 type updateParams struct {
 	Id string `params:"id"` // ID da receita
-}
+} // @name updateParams
 
 // UpdateRevenues é uma função que atualiza uma receita
 // @Summary Rota para atualizar uma receita
